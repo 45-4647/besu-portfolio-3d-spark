@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 interface NavigationProps {
   darkMode: boolean;
@@ -11,6 +13,7 @@ interface NavigationProps {
 export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user, signOut } = useAuth();
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -64,8 +67,36 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
             ))}
           </div>
 
-          {/* Dark Mode Toggle & Mobile Menu */}
+          {/* Auth, Dark Mode Toggle & Mobile Menu */}
           <div className="flex items-center space-x-4">
+            {user ? (
+              <div className="hidden md:flex items-center space-x-2">
+                <span className="text-sm text-muted-foreground">
+                  Welcome back!
+                </span>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={signOut}
+                  className="rounded-full"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden md:flex glass hover:glass-strong"
+                asChild
+              >
+                <Link to="/auth">
+                  <User className="mr-2 h-4 w-4" />
+                  Sign In
+                </Link>
+              </Button>
+            )}
+
             <Button
               variant="ghost"
               size="icon"
@@ -115,6 +146,31 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
                 {item.name}
               </motion.a>
             ))}
+            
+            {/* Mobile Auth */}
+            <div className="pt-4 border-t border-border/50">
+              {user ? (
+                <Button
+                  variant="ghost"
+                  onClick={signOut}
+                  className="w-full justify-start"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Sign Out
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  className="w-full glass hover:glass-strong"
+                  asChild
+                >
+                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                    <User className="mr-2 h-4 w-4" />
+                    Sign In
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
         </motion.div>
       </div>
