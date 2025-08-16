@@ -83,12 +83,12 @@ export function HeroSection() {
             className="magnetic-button glass hover:glass-strong px-8 py-4 text-lg font-semibold"
           >
             <Download className="mr-2 h-5 w-5" />
-<<<<<<< HEAD
-            Download CV
-=======
+
+           <a href="https://drive.google.com/file/d/1UWr1HStVZq_R50H4LQyTSLPgfjvmpXaO/view?pli=1" type='_blanck'>Download CV</a>  
+
             <a className='hover:text-black' href="https://drive.google.com/file/d/1UWr1HStVZq_R50H4LQyTSLPgfjvmpXaO/view?pli=1" type='_blanck'> Download CV</a>
            
->>>>>>> 466d62b (modified file)
+
           </Button>
         </motion.div>
 
