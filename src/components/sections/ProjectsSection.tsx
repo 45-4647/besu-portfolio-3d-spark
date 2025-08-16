@@ -72,6 +72,18 @@ export function ProjectsSection() {
       live: "https://besu-fitnnes.netlify.app/",
       featured: false,
     },
+    {
+      id: 6,
+      title: "iphone model Website",
+      description:
+        "Comprehensive iphone promotion website with real-time data visualization and reporting capabilities.",
+      category: "web",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "D3.js", "MongoDB", "Express", "Socket.io"],
+      github: "https://github.com/45-4647/3d-apple-iphone",
+      live: "https://3d-apple-iphone.vercel.app/",
+      featured: false,
+    },
   ];
 
   const filteredProjects =
