@@ -15,26 +15,43 @@ export function ContactSection() {
     {
       icon: Mail,
       label: 'Email',
+<<<<<<< HEAD
       value: 'besufikad@example.com',
+=======
+      value: 'besufikad12@gmail.com',
+>>>>>>> 466d62b (modified file)
       href: 'mailto:besufikad@example.com',
     },
     {
       icon: Phone,
       label: 'Phone',
+<<<<<<< HEAD
       value: '+251 911 123 456',
+=======
+      value: '+251 937184393',
+>>>>>>> 466d62b (modified file)
       href: 'tel:+251911123456',
     },
     {
       icon: MapPin,
       label: 'Location',
+<<<<<<< HEAD
       value: 'Addis Ababa, Ethiopia',
+=======
+      value: 'Adama, Ethiopia',
+>>>>>>> 466d62b (modified file)
       href: '#',
     },
   ];
 
   const socialLinks = [
+<<<<<<< HEAD
     { icon: Github, href: '#', label: 'GitHub' },
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
+=======
+    { icon: Github, href: 'https://github.com/45-4647', label: 'GitHub' },
+    { icon: Linkedin, href: 'www.linkedin.com/in/besufikad-kasahun-9112a8378', label: 'LinkedIn' },
+>>>>>>> 466d62b (modified file)
     { icon: Twitter, href: '#', label: 'Twitter' },
   ];
 

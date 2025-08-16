@@ -19,8 +19,13 @@ export function ProjectsSection() {
       category: 'fullstack',
       image: '/api/placeholder/400/300',
       technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+<<<<<<< HEAD
       github: '#',
       live: '#',
+=======
+      github: 'https://github.com/45-4647/full-stack-ecommerce-website',
+      live: 'https://full-stack-ecommerce-frontend-seven.vercel.app/',
+>>>>>>> 466d62b (modified file)
       featured: true,
     },
     {
@@ -30,12 +35,18 @@ export function ProjectsSection() {
       category: '3d',
       image: '/api/placeholder/400/300',
       technologies: ['React', 'Three.js', 'WebGL', 'GSAP'],
+<<<<<<< HEAD
       github: '#',
       live: '#',
+=======
+      github: 'https://github.com/45-4647/besu-portfolio-3d-spark',
+      live: 'https://besufikad-portfolio.vercel.app/',
+>>>>>>> 466d62b (modified file)
       featured: true,
     },
     {
       id: 3,
+<<<<<<< HEAD
       title: 'Mobile Banking App',
       description: 'Secure mobile banking application with biometric authentication and real-time transaction processing.',
       category: 'mobile',
@@ -43,6 +54,15 @@ export function ProjectsSection() {
       technologies: ['React Native', 'Firebase', 'Node.js'],
       github: '#',
       live: '#',
+=======
+      title: 'netours website',
+      description: 'Secure mobile banking application with biometric authentication and real-time transaction processing.',
+      category: 'mobile',
+      image: '/api/placeholder/400/300',
+      technologies: ['React', 'Firebase', 'Node.js'],
+      github: 'https://github.com/45-4647/netours',
+      live: 'https://netours-website.vercel.app/',
+>>>>>>> 466d62b (modified file)
       featured: false,
     },
     {
@@ -51,9 +71,26 @@ export function ProjectsSection() {
       description: 'Comprehensive analytics dashboard with real-time data visualization and reporting capabilities.',
       category: 'web',
       image: '/api/placeholder/400/300',
+<<<<<<< HEAD
       technologies: ['Vue.js', 'D3.js', 'Python', 'PostgreSQL'],
       github: '#',
       live: '#',
+=======
+      technologies: ['reactjs', 'D3.js', 'mobgodb', 'PostgreSQL'],
+      github: 'https://github.com/45-4647/BrainWave-wabsite',
+      live: 'ttps://brain-wave-wabsite.vercel.app/',
+      featured: false,
+    },
+    {
+      id: 5,
+      title: 'fitness website',
+      description: 'Comprehensive fitness website with real-time data visualization and reporting capabilities.',
+      category: 'web',
+      image: '/api/placeholder/400/300',
+      technologies: ['reactjs', 'D3.js', 'mobgodb', 'express',"soket.io"],
+      github: 'https://github.com/45-4647/chat_app',
+      live: 'https://besu-fitnnes.netlify.app/',
+>>>>>>> 466d62b (modified file)
       featured: false,
     },
   ];
@@ -180,11 +217,21 @@ export function ProjectsSection() {
                   <div className="flex space-x-3">
                     <Button size="sm" variant="outline" className="flex-1">
                       <Github className="mr-2 h-4 w-4" />
+<<<<<<< HEAD
                       Code
                     </Button>
                     <Button size="sm" className="flex-1 bg-gradient-primary text-primary-foreground">
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Live Demo
+=======
+                      <a href={project.github} type='_blanck'> Code</a>
+                     
+                    </Button>
+                    <Button size="sm" className="flex-1 bg-gradient-primary text-primary-foreground">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                       <a href={project.live}  type='_blanck'> Live Demo</a>
+                     
+>>>>>>> 466d62b (modified file)
                     </Button>
                   </div>
                 </CardContent>
