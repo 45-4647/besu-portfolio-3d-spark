@@ -1,103 +1,83 @@
-import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github, Zap } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { ExternalLink, Github, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeFilter, setActiveFilter] = useState("all");
   const sectionRef = useRef<HTMLElement>(null);
 
-  const filters = ['all', 'web', 'mobile', 'fullstack', '3d'];
+  const filters = ["all", "web", "mobile", "fullstack", "3d"];
 
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.',
-      category: 'fullstack',
-      image: '/api/placeholder/400/300',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-<<<<<<< HEAD
-      github: '#',
-      live: '#',
-=======
-      github: 'https://github.com/45-4647/full-stack-ecommerce-website',
-      live: 'https://full-stack-ecommerce-frontend-seven.vercel.app/',
->>>>>>> 466d62b (modified file)
+      title: "E-Commerce Platform",
+      description:
+        "Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.",
+      category: "fullstack",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+      github: "https://github.com/45-4647/full-stack-ecommerce-website",
+      live: "https://full-stack-ecommerce-frontend-seven.vercel.app/",
       featured: true,
     },
     {
       id: 2,
-      title: '3D Portfolio Experience',
-      description: 'Interactive 3D portfolio website built with Three.js and React Three Fiber for immersive user experience.',
-      category: '3d',
-      image: '/api/placeholder/400/300',
-      technologies: ['React', 'Three.js', 'WebGL', 'GSAP'],
-<<<<<<< HEAD
-      github: '#',
-      live: '#',
-=======
-      github: 'https://github.com/45-4647/besu-portfolio-3d-spark',
-      live: 'https://besufikad-portfolio.vercel.app/',
->>>>>>> 466d62b (modified file)
+      title: "3D Portfolio Experience",
+      description:
+        "Interactive 3D portfolio website built with Three.js and React Three Fiber for immersive user experience.",
+      category: "3d",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "Three.js", "WebGL", "GSAP"],
+      github: "https://github.com/45-4647/besu-portfolio-3d-spark",
+      live: "https://besufikad-portfolio.vercel.app/",
       featured: true,
     },
     {
       id: 3,
-<<<<<<< HEAD
-      title: 'Mobile Banking App',
-      description: 'Secure mobile banking application with biometric authentication and real-time transaction processing.',
-      category: 'mobile',
-      image: '/api/placeholder/400/300',
-      technologies: ['React Native', 'Firebase', 'Node.js'],
-      github: '#',
-      live: '#',
-=======
-      title: 'netours website',
-      description: 'Secure mobile banking application with biometric authentication and real-time transaction processing.',
-      category: 'mobile',
-      image: '/api/placeholder/400/300',
-      technologies: ['React', 'Firebase', 'Node.js'],
-      github: 'https://github.com/45-4647/netours',
-      live: 'https://netours-website.vercel.app/',
->>>>>>> 466d62b (modified file)
+      title: "Netours Website",
+      description:
+        "Secure mobile banking application with biometric authentication and real-time transaction processing.",
+      category: "mobile",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "Firebase", "Node.js"],
+      github: "https://github.com/45-4647/netours",
+      live: "https://netours-website.vercel.app/",
       featured: false,
     },
     {
       id: 4,
-      title: 'Dashboard Analytics',
-      description: 'Comprehensive analytics dashboard with real-time data visualization and reporting capabilities.',
-      category: 'web',
-      image: '/api/placeholder/400/300',
-<<<<<<< HEAD
-      technologies: ['Vue.js', 'D3.js', 'Python', 'PostgreSQL'],
-      github: '#',
-      live: '#',
-=======
-      technologies: ['reactjs', 'D3.js', 'mobgodb', 'PostgreSQL'],
-      github: 'https://github.com/45-4647/BrainWave-wabsite',
-      live: 'ttps://brain-wave-wabsite.vercel.app/',
+      title: "Brain Wave Website",
+      description:
+        "Comprehensive analytics dashboard with real-time data visualization and reporting capabilities.",
+      category: "web",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "D3.js", "MongoDB", "PostgreSQL"],
+      github: "https://github.com/45-4647/BrainWave-wabsite",
+      live: "https://brain-wave-wabsite.vercel.app/",
       featured: false,
     },
     {
       id: 5,
-      title: 'fitness website',
-      description: 'Comprehensive fitness website with real-time data visualization and reporting capabilities.',
-      category: 'web',
-      image: '/api/placeholder/400/300',
-      technologies: ['reactjs', 'D3.js', 'mobgodb', 'express',"soket.io"],
-      github: 'https://github.com/45-4647/chat_app',
-      live: 'https://besu-fitnnes.netlify.app/',
->>>>>>> 466d62b (modified file)
+      title: "Fitness Website",
+      description:
+        "Comprehensive fitness website with real-time data visualization and reporting capabilities.",
+      category: "web",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "D3.js", "MongoDB", "Express", "Socket.io"],
+      github: "https://github.com/45-4647/chat_app",
+      live: "https://besu-fitnnes.netlify.app/",
       featured: false,
     },
   ];
 
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((project) => project.category === activeFilter);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -146,9 +126,9 @@ export function ProjectsSection() {
               variant={activeFilter === filter ? "default" : "outline"}
               onClick={() => setActiveFilter(filter)}
               className={`capitalize magnetic-button ${
-                activeFilter === filter 
-                  ? 'bg-gradient-primary text-primary-foreground' 
-                  : 'glass hover:glass-strong'
+                activeFilter === filter
+                  ? "bg-gradient-primary text-primary-foreground"
+                  : "glass hover:glass-strong"
               }`}
             >
               {filter}
@@ -169,34 +149,57 @@ export function ProjectsSection() {
               initial={{ opacity: 0, y: 50 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-              className={project.featured ? 'md:col-span-2 lg:col-span-2' : ''}
+              className={project.featured ? "md:col-span-2 lg:col-span-2" : ""}
             >
               <Card className="glass hover:glass-strong group overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-glow">
                 <div className="relative overflow-hidden">
-                  <div className={`${project.featured ? 'h-64' : 'h-48'} bg-gradient-secondary flex items-center justify-center`}>
+                  <div
+                    className={`${
+                      project.featured ? "h-64" : "h-48"
+                    } bg-gradient-secondary flex items-center justify-center`}
+                  >
                     <div className="text-6xl font-bold text-primary opacity-20">
-                      {project.title.split(' ').map(word => word[0]).join('')}
+                      {project.title
+                        .split(" ")
+                        .map((word) => word[0])
+                        .join("")}
                     </div>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button size="icon" variant="secondary" className="rounded-full">
-                      <Github className="h-4 w-4" />
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                      asChild
+                    >
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="h-4 w-4" />
+                      </a>
                     </Button>
-                    <Button size="icon" variant="secondary" className="rounded-full">
-                      <ExternalLink className="h-4 w-4" />
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-full"
+                      asChild
+                    >
+                      <a href={project.live} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
                     </Button>
                   </div>
                   {project.featured && (
                     <div className="absolute top-4 left-4">
                       <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm">
                         <Zap className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium text-primary">Featured</span>
+                        <span className="text-sm font-medium text-primary">
+                          Featured
+                        </span>
                       </div>
                     </div>
                   )}
                 </div>
-                
+
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-3 text-gradient-secondary">
                     {project.title}
@@ -215,23 +218,21 @@ export function ProjectsSection() {
                     ))}
                   </div>
                   <div className="flex space-x-3">
-                    <Button size="sm" variant="outline" className="flex-1">
-                      <Github className="mr-2 h-4 w-4" />
-<<<<<<< HEAD
-                      Code
+                    <Button size="sm" variant="outline" asChild className="flex-1">
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="mr-2 h-4 w-4" />
+                        Code
+                      </a>
                     </Button>
-                    <Button size="sm" className="flex-1 bg-gradient-primary text-primary-foreground">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Live Demo
-=======
-                      <a href={project.github} type='_blanck'> Code</a>
-                     
-                    </Button>
-                    <Button size="sm" className="flex-1 bg-gradient-primary text-primary-foreground">
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                       <a href={project.live}  type='_blanck'> Live Demo</a>
-                     
->>>>>>> 466d62b (modified file)
+                    <Button
+                      size="sm"
+                      className="flex-1 bg-gradient-primary text-primary-foreground"
+                      asChild
+                    >
+                      <a href={project.live} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Live Demo
+                      </a>
                     </Button>
                   </div>
                 </CardContent>
