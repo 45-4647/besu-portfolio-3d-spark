@@ -84,6 +84,19 @@ export function ProjectsSection() {
       live: "https://3d-apple-iphone.vercel.app/",
       featured: false,
     },
+    {
+      id: 7,
+      title: "modern movie Website",
+      description:
+        "Comprehensive modern movie website with real-time data visualization and reporting capabilities.",
+      category: "web",
+      image: "/api/placeholder/400/300",
+      technologies: ["nextjs", "D3.js", "MongoDB","nextauth"],
+      github: "https://github.com/45-4647/moder_portfolio",
+      live: "https://modern-movie-site.vercel.app/",
+      featured: false,
+    },
+    
   ];
 
   const filteredProjects =
