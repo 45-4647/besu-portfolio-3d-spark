@@ -148,12 +148,12 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
             ))}
             
             {/* Mobile Auth */}
-            <div className="pt-4 border-t border-border/50">
+            <div className="pt-4 border-t border-border/50 text-gray-700">
               {user ? (
                 <Button
                   variant="ghost"
                   onClick={signOut}
-                  className="w-full justify-start"
+                  className="w-full justify-start text-gray-700"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
                   Sign Out
@@ -161,12 +161,12 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
               ) : (
                 <Button
                   variant="outline"
-                  className="w-full glass hover:glass-strong"
+                  className="w-full text-gray-700 hover:glass-strong"
                   asChild
                 >
                   <Link to="/auth" onClick={() => setIsOpen(false)}>
-                    <User className="mr-2 h-4 w-4" />
-                    Sign In
+                    <User className="mr-2 h-4 w-4  text-gray-700 " />
+                    {/* Sign In */}
                   </Link>
                 </Button>
               )}
