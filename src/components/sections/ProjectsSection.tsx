@@ -218,7 +218,7 @@ export function ProjectsSection() {
                       <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm">
                         <Zap className="h-4 w-4 text-primary" />
                         <span className="text-sm font-medium text-primary">
-                          {/* Featured */}
+                          Featured
                         </span>
                       </div>
                     </div>

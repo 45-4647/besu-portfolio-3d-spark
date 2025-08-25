@@ -147,7 +147,7 @@ export function ContactSection() {
                       key={social.label}
                       variant="outline"
                       size="icon"
-                      className="rounded-full glass hover:glass-strong magnetic-button"
+                      className="rounded-full glass text-gray-400 hover:glass-strong magnetic-button"
                       asChild
                     >
                       <a href={social.href} aria-label={social.label}>
