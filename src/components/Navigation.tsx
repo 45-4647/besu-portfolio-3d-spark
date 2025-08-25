@@ -165,8 +165,8 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
                   asChild
                 >
                   <Link to="/auth" onClick={() => setIsOpen(false)}>
-                    <User className="mr-2 h-4 w-4  text-gray-700 " />
-                    {/* Sign In */}
+                    <User className="mr-2 h-4 w-4 text-gray-700 " />
+                    Sign In
                   </Link>
                 </Button>
               )}

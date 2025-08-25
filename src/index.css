@@ -178,7 +178,7 @@
 
   /* Glass Effect */
   .glass {
-    color: white;
+    /* color: white; */
     /* @apply backdrop-blur-md bg-card/80 border border-border/50; */
     box-shadow: var(--shadow-lg);
   }
