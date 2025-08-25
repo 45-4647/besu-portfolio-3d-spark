@@ -71,7 +71,7 @@ export function HeroSection() {
         >
           <Button
             size="lg"
-            className="magnetic-button bg-gradient-primary hover:bg-gradient-primary text-primary-foreground px-8 py-4 text-lg font-semibold"
+            className="magnetic-button bg-gradient-primary text-primary-foreground px-8 py-4 text-lg font-semibold"
           >
             <Mail className="mr-2 h-5 w-5" />
             Get In Touch
@@ -80,11 +80,11 @@ export function HeroSection() {
           <Button
             variant="outline"
             size="lg"
-            className="magnetic-button glass hover:glass-strong px-8 py-4 text-lg font-semibold"
+            className="magnetic-button glass  px-8 py-4 text-lg font-semibold"
           >
             <Download className="mr-2 h-5 w-5" />
 
-            <a className='hover:text-black' href="https://drive.google.com/file/d/1UWr1HStVZq_R50H4LQyTSLPgfjvmpXaO/view?pli=1" type='_blanck'> Download CV</a>
+            <a className='hover:text-white' href="https://drive.google.com/file/d/1UWr1HStVZq_R50H4LQyTSLPgfjvmpXaO/view?pli=1" type='_blanck'> Download CV</a>
            
 
           </Button>
