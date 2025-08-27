@@ -105,27 +105,28 @@ export function ProjectsSection() {
       : projects.filter((project) => project.category === activeFilter);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
+  const isMobile = window.innerWidth < 768; // mobile threshold
+  if (isMobile) {
+    setIsVisible(true); // force visibility on mobile
+    return; // skip observer
+  }
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true);
+    },
+    { threshold: 0.2 }
+  );
 
-    return () => observer.disconnect();
-  }, []);
+  if (sectionRef.current) observer.observe(sectionRef.current);
+  return () => observer.disconnect();
+}, []);
 
   return (
     <section ref={sectionRef} id="projects" className="py-20">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 1, y: 50 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
@@ -166,7 +167,7 @@ export function ProjectsSection() {
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {filteredProjects.map((project, index) => (
             <motion.div
