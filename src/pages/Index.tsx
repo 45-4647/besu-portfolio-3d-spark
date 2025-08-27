@@ -26,8 +26,8 @@ const Index = () => {
       <Navigation darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <main>
         <HeroSection />
-        <AboutSection />
         <ProjectsSection />
+        <AboutSection />
         <ContactSection />
       </main>
       
