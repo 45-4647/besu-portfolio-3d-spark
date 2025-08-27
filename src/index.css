@@ -178,20 +178,20 @@
 
   /* Glass Effect */
   .glass {
-     color: white; 
-     @apply backdrop-blur-md bg-card/80 border border-border/50; 
+    /* color: white; */
+    /* @apply backdrop-blur-md bg-card/80 border border-border/50; */
     box-shadow: var(--shadow-lg);
   }
 
   .glass-strong {
      color: white;
-     @apply backdrop-blur-xl bg-card/90 border border-border/60; 
+    /* @apply backdrop-blur-xl bg-card/90 border border-border/60; */
     box-shadow: var(--shadow-xl);
   }
 
   /* Magnetic Button Effect */
   .magnetic-button {
-    @apply relative overflow-hidden transition-all duration-300 ease-out; 
+    /* @apply relative overflow-hidden transition-all duration-300 ease-out; */
     transform-style: preserve-3d;
   }
 
@@ -203,7 +203,7 @@
 
   .magnetic-button::before {
     content: '';
-     @apply absolute inset-0 bg-gradient-to-r from-primary to-primary-dark opacity-0 transition-opacity duration-300; 
+    /* @apply absolute inset-0 bg-gradient-to-r from-primary to-primary-dark opacity-0 transition-opacity duration-300; */
   }
 
   .magnetic-button:hover::before {
