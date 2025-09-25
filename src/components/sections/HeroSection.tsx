@@ -84,7 +84,7 @@ export function HeroSection() {
           >
             <Download className="mr-2 h-5 w-5" />
 
-            <a className='text-blue-800' href="https://drive.google.com/file/d/1CGCbZAsPalXLW1i7V3_SgYphvac6OURO/view" target="_blank"> Download CV</a>
+            <a className='text-blue-800' href="https://docs.google.com/document/d/1c-7aSNBFeyngSFzbakeTDC9BvbgRgQQa/edit?usp=sharing&ouid=112641521664913686851&rtpof=true&sd=true" target="_blank"> Download CV</a>
            
 
           </Button>
