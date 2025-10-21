@@ -24,6 +24,7 @@ export function ProjectsSection() {
       live: "https://full-stack-ecommerce-frontend-seven.vercel.app/",
       featured: true,
     },
+    
     {
       id: 2,
       title: "3D Portfolio Experience",
@@ -95,6 +96,18 @@ export function ProjectsSection() {
       github: "https://github.com/45-4647/moder_portfolio",
       live: "https://modern-movie-site.vercel.app/",
       featured: false,
+    },
+    {
+      id: 8,
+      title: "seller and Buyer communication platform",
+      description:
+      " Broker is a modern online marketplace platform that connects buyers and sellers directly — without involving delivery or payment system",
+      category: "fullstack",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "Node.js", "MongoDB", "tailwund"],
+      github: "https://github.com/45-4647/broker-front",
+      live: "https://broker-frontend.vercel.app/",
+      featured: true,
     },
     
   ];
