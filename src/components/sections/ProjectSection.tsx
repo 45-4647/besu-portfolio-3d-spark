@@ -53,7 +53,7 @@ export function ProjectsSection() {
       id: 4,
       title: "Brain Wave Website",
       description:
-        "Comprehensive analytics dashboard with real-time data visualization and reporting capabilities.",
+        "😅😍 this project is responsive mobile based web application",
       category: "web",
       image: "/api/placeholder/400/300",
       technologies: ["React", "D3.js", "MongoDB", "PostgreSQL"],
@@ -65,8 +65,7 @@ export function ProjectsSection() {
       id: 5,
       title: "Fitness Website",
       description:
-        "Comprehensive fitness website with real-time data visualization and reporting capabilities.",
-      category: "web",
+        "i build fitness website that provide how the exercise work and where the exercise should be work ",
       image: "/api/placeholder/400/300",
       technologies: ["React", "D3.js", "MongoDB", "Express", "Socket.io"],
       github: "https://github.com/45-4647/chat_app",
@@ -89,7 +88,7 @@ export function ProjectsSection() {
       id: 7,
       title: "modern movie Website",
       description:
-        "Comprehensive modern movie website with real-time data visualization and reporting capabilities.",
+        "I build design and develop a fully functional movie website that allows users to browse, search, and explore movies in style — complete with modern animations, interactive design, and an intuitive interface.",
       category: "web",
       image: "/api/placeholder/400/300",
       technologies: ["nextjs", "D3.js", "MongoDB","nextauth"],
