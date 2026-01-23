@@ -38,9 +38,9 @@ export function ContactSection() {
 
     
     { icon: Linkedin, href: 'https://www.linkedin.com/in/besufikad-kasahun-9112a8378/', label: 'LinkedIn' },
-    { icon: Github, href: 'https://github.com/45-4647', label: 'GitHub' },
+     { icon: Github, href: 'https://github.com/45-4647', label: 'GitHub' },
     
-    { icon: Twitter, href: '#', label: 'Twiter' },
+    { icon: Twitter, href: '#', label: 'Twitter' },
   ];
 
   useEffect(() => {
