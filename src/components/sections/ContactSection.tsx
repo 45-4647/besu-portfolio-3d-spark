@@ -16,9 +16,9 @@ export function ContactSection() {
       icon: Mail,
       label: 'Email',
 
-      value: 'besufikad12@gmail.com',
+      value: 'besufikadkasahun12@gmail.com',
 
-      href: 'mailto:besufikad12@gmail.com',
+      href: 'mailto:besufikadkasahun12@gmail.com',
     },
     {
       icon: Phone,
@@ -36,11 +36,11 @@ export function ContactSection() {
 
   const socialLinks = [
 
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/besufikad-kasahun-9112a8378/', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/45-4647', label: 'GitHub' },
-    { icon: Linkedin, href: 'www.linkedin.com/in/besufikad-kasahun-9112a8378', label: 'LinkedIn' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
+    
+    { icon: Twitter, href: '#', label: 'Twiter' },
   ];
 
   useEffect(() => {

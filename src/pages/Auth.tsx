@@ -60,7 +60,7 @@ export default function Auth() {
           });
         }
       }
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: "Error",
         description: error.message || "Something went wrong",

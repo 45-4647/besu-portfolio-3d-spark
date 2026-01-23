@@ -78,7 +78,7 @@ export function AboutSection() {
             <div className="text-center space-y-4">
               <h3 className="text-2xl font-bold">Building the Future</h3>
               <p className="text-muted-foreground leading-relaxed">
-                I specialize in creating scalable web applications, mobile solutions,
+                 I specialize in creating scalable web applications, mobile solutions,
                 and innovative digital experiences. My passion lies in solving complex
                 problems with elegant, efficient code.
               </p>
