@@ -14,16 +14,18 @@ export function ProjectsSection() {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
+      title: "seller and Buyer communication platform",
       description:
-        "Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.",
+      " Broker is a modern online marketplace platform that connects buyers and sellers directly — without involving delivery or payment system",
       category: "fullstack",
       image: "/api/placeholder/400/300",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "https://github.com/45-4647/full-stack-ecommerce-website",
-      live: "https://full-stack-ecommerce-frontend-seven.vercel.app/",
+      technologies: ["React", "Node.js", "MongoDB", "tailwund"],
+      github: "https://github.com/45-4647/broker-front",
+      live: "https://broker-frontend.vercel.app/",
       featured: true,
     },
+    
+    
     
     {
       id: 2,
@@ -98,14 +100,14 @@ export function ProjectsSection() {
     },
     {
       id: 8,
-      title: "seller and Buyer communication platform",
+      title: "E-Commerce Platform",
       description:
-      " Broker is a modern online marketplace platform that connects buyers and sellers directly — without involving delivery or payment system",
+        "Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.",
       category: "fullstack",
       image: "/api/placeholder/400/300",
-      technologies: ["React", "Node.js", "MongoDB", "tailwund"],
-      github: "https://github.com/45-4647/broker-front",
-      live: "https://broker-frontend.vercel.app/",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+      github: "https://github.com/45-4647/full-stack-ecommerce-website",
+      live: "https://full-stack-ecommerce-frontend-seven.vercel.app/",
       featured: true,
     },
     
