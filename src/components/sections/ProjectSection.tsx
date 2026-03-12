@@ -24,35 +24,8 @@ export function ProjectsSection() {
       live: "https://broker-frontend.vercel.app/",
       featured: true,
     },
-    
-    
-    
-    {
+     {
       id: 2,
-      title: "3D Portfolio Experience",
-      description:
-        "Interactive 3D portfolio website built with Three.js and React Three Fiber for immersive user experience.",
-      category: "3d",
-      image: "/api/placeholder/400/300",
-      technologies: ["React", "Three.js", "WebGL", "GSAP"],
-      github: "https://github.com/45-4647/besu-portfolio-3d-spark",
-      live: "https://besufikad-portfolio.vercel.app/",
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Netours Website",
-      description:
-        "Secure mobile banking application with biometric authentication and real-time transaction processing.",
-      category: "mobile",
-      image: "/api/placeholder/400/300",
-      technologies: ["React", "Firebase", "Node.js"],
-      github: "https://github.com/45-4647/netours",
-      live: "https://netours-website.vercel.app/",
-      featured: false,
-    },
-    {
-      id: 4,
       title: "Brain Wave Website",
       description:
         "😅😍 this project is responsive mobile based web application",
@@ -63,8 +36,23 @@ export function ProjectsSection() {
       live: "https://brain-wave-wabsite.vercel.app/",
       featured: false,
     },
+    
+    
     {
-      id: 5,
+      id: 3,
+      title: "3D Portfolio Experience",
+      description:
+        "Interactive 3D portfolio website built with Three.js and React Three Fiber for immersive user experience.",
+      category: "3d",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "Three.js", "WebGL", "GSAP"],
+      github: "https://github.com/45-4647/besu-portfolio-3d-spark",
+      live: "https://besufikad-portfolio.vercel.app/",
+      featured: true,
+    },
+   
+    {
+      id: 4,
       title: "Fitness Website",
       description:
         "i build fitness website that provide how the exercise work and where the exercise should be work ",
@@ -74,8 +62,8 @@ export function ProjectsSection() {
       live: "https://besu-fitnnes.netlify.app/",
       featured: false,
     },
-    {
-      id: 6,
+     {
+      id: 5,
       title: "iphone model Website",
       description:
         "Comprehensive iphone promotion website with real-time data visualization and reporting capabilities.",
@@ -86,20 +74,13 @@ export function ProjectsSection() {
       live: "https://3d-apple-iphone.vercel.app/",
       featured: false,
     },
+    
+    
+    
+   
+    
     {
-      id: 7,
-      title: "modern movie Website",
-      description:
-        "I build design and develop a fully functional movie website that allows users to browse, search, and explore movies in style — complete with modern animations, interactive design, and an intuitive interface.",
-      category: "web",
-      image: "/api/placeholder/400/300",
-      technologies: ["nextjs", "D3.js", "MongoDB","nextauth"],
-      github: "https://github.com/45-4647/moder_portfolio",
-      live: "https://modern-movie-site.vercel.app/",
-      featured: false,
-    },
-    {
-      id: 8,
+      id: 6,
       title: "E-Commerce Platform",
       description:
         "Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.",
@@ -107,9 +88,10 @@ export function ProjectsSection() {
       image: "/api/placeholder/400/300",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       github: "https://github.com/45-4647/full-stack-ecommerce-website",
-      live: "https://full-stack-ecommerce-frontend-seven.vercel.app/",
+      live: "https://full-stack-ecommerce-website-43j2.vercel.app/",
       featured: true,
     },
+   
     
   ];
 
