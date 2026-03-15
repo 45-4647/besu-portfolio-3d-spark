@@ -24,8 +24,20 @@ export function ProjectsSection() {
       live: "https://broker-frontend.vercel.app/",
       featured: true,
     },
-     {
+    {
       id: 2,
+      title: "E-Commerce Platform",
+      description:
+        "Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.",
+      category: "fullstack",
+      image: "/api/placeholder/400/300",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+      github: "https://github.com/45-4647/full-stack-ecommerce-website",
+      live: "https://full-stack-ecommerce-website-43j2.vercel.app/",
+      featured: true,
+    },
+     {
+      id: 3,
       title: "Brain Wave Website",
       description:
         "😅😍 this project is responsive mobile based web application",
@@ -39,7 +51,7 @@ export function ProjectsSection() {
     
     
     {
-      id: 3,
+      id: 4,
       title: "3D Portfolio Experience",
       description:
         "Interactive 3D portfolio website built with Three.js and React Three Fiber for immersive user experience.",
@@ -52,7 +64,7 @@ export function ProjectsSection() {
     },
    
     {
-      id: 4,
+      id: 5,
       title: "Fitness Website",
       description:
         "i build fitness website that provide how the exercise work and where the exercise should be work ",
@@ -63,7 +75,7 @@ export function ProjectsSection() {
       featured: false,
     },
      {
-      id: 5,
+      id: 6,
       title: "iphone model Website",
       description:
         "Comprehensive iphone promotion website with real-time data visualization and reporting capabilities.",
@@ -79,16 +91,17 @@ export function ProjectsSection() {
     
    
     
+    
     {
-      id: 6,
-      title: "E-Commerce Platform",
+      id: 7,
+      title: "Movie Website",
       description:
-        "Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.",
+        "modern movie website that provide the user to search the movie and get the information about the movie and also provide the user to buy the ticket for the movie",
       category: "fullstack",
       image: "/api/placeholder/400/300",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "https://github.com/45-4647/full-stack-ecommerce-website",
-      live: "https://full-stack-ecommerce-website-43j2.vercel.app/",
+      technologies: ["React","next.js", "Node.js", "MongoDB", "Stripe"],
+      github: "https://github.com/45-4647/movie_website",
+      live: "https://modern-movie-six.vercel.app/",
       featured: true,
     },
    
