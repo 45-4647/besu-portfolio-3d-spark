@@ -21,7 +21,7 @@ export function ProjectsSection() {
       image: "/api/placeholder/400/300",
       technologies: ["React", "Node.js", "MongoDB", "tailwund"],
       github: "https://github.com/45-4647/broker-front",
-      live: "https://broker-frontend.vercel.app/",
+      live: "https://broker-fullstack.vercel.app/",
       featured: true,
     },
     {
