@@ -60,7 +60,7 @@ export function HeroSection() {
               >
                 <Download className="mr-2 h-5 w-5" />
                 <a
-                  href="https://drive.google.com/file/d/1Sh0YtQ9iLUj_WjzTNKpy_v-T1k5z4nFJ/view?usp=sharing"
+                  href="https://drive.google.com/file/d/17_BvRJ30b1Wvk8zQi95i3zk8JnPIWl5y/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
