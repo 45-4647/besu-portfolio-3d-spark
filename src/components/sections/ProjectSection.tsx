@@ -145,18 +145,22 @@ export function ProjectsSection() {
 }, []);
 
   return (
-    <section ref={sectionRef} id="projects" className="py-20">
-      <div className="container mx-auto px-6">
+    <section
+      ref={sectionRef}
+      id="projects"
+      className="py-16 md:py-20 w-full bg-background"
+    >
+      <div className="container mx-auto px-2 sm:px-4 md:px-6">
         <motion.div
           initial={{ opacity: 1, y: 50 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-6">
+          <h2 className="text-3xl xs:text-4xl md:text-5xl font-bold text-gradient mb-4 md:mb-6">
             Featured Projects
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base xs:text-lg md:text-xl text-muted-foreground max-w-2xl md:max-w-3xl mx-auto">
             A showcase of innovative solutions and creative implementations
           </p>
         </motion.div>
@@ -166,18 +170,21 @@ export function ProjectsSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-nowrap md:flex-wrap overflow-x-auto scrollbar-thin scrollbar-thumb-primary/30 gap-2 md:gap-4 mb-8 md:mb-12 px-1"
+          tabIndex={0}
+          aria-label="Project category filters"
         >
           {filters.map((filter) => (
             <Button
               key={filter}
               variant={activeFilter === filter ? "default" : "outline"}
               onClick={() => setActiveFilter(filter)}
-              className={`capitalize magnetic-button ${
+              className={`capitalize magnetic-button whitespace-nowrap text-sm xs:text-base ${
                 activeFilter === filter
                   ? "bg-gradient-primary text-primary-foreground"
                   : "glass hover:glass-strong"
               }`}
+              aria-pressed={activeFilter === filter}
             >
               {filter}
             </Button>
@@ -189,7 +196,7 @@ export function ProjectsSection() {
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8"
         >
           {filteredProjects.map((project, index) => (
             <motion.div
@@ -197,29 +204,35 @@ export function ProjectsSection() {
               initial={{ opacity: 0, y: 50 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-              className={project.featured ? "md:col-span-2 lg:col-span-2" : ""}
+              className={
+                project.featured
+                  ? "xs:col-span-2 lg:col-span-2"
+                  : ""
+              }
             >
-              <Card className="glass hover:glass-strong group overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-glow">
+              <Card className="glass hover:glass-strong group overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-glow focus-within:scale-[1.03] focus-within:shadow-glow">
                 <div className="relative overflow-hidden">
                   <div
-                    className={`${
-                      project.featured ? "h-64" : "h-48"
+                    className={`$${
+                      project.featured ? "h-56 xs:h-64" : "h-40 xs:h-48"
                     } bg-gradient-secondary flex items-center justify-center`}
                   >
-                    <div className="text-6xl font-bold text-primary opacity-20">
+                    <div className="text-4xl xs:text-6xl font-bold text-primary opacity-20 select-none pointer-events-none">
                       {project.title
                         .split(" ")
                         .map((word) => word[0])
                         .join("")}
                     </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300">
                     <Button
                       size="icon"
                       variant="secondary"
                       className="rounded-full"
                       asChild
+                      tabIndex={0}
+                      aria-label="View on GitHub"
                     >
                       <a href={project.github} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
@@ -230,6 +243,8 @@ export function ProjectsSection() {
                       variant="secondary"
                       className="rounded-full"
                       asChild
+                      tabIndex={0}
+                      aria-label="View Live Demo"
                     >
                       <a href={project.live} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
@@ -237,10 +252,10 @@ export function ProjectsSection() {
                     </Button>
                   </div>
                   {project.featured && (
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-3 left-3">
                       <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm">
                         <Zap className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium text-primary">
+                        <span className="text-xs xs:text-sm font-medium text-primary">
                           Featured
                         </span>
                       </div>
@@ -248,25 +263,25 @@ export function ProjectsSection() {
                   )}
                 </div>
 
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-gradient-secondary">
+                <CardContent className="p-4 xs:p-6">
+                  <h3 className="text-lg xs:text-xl font-bold mb-2 xs:mb-3 text-gradient-secondary">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                  <p className="text-muted-foreground mb-3 xs:mb-4 leading-relaxed text-sm xs:text-base">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-3 xs:mb-4">
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary"
+                        className="px-2 xs:px-3 py-1 text-xs xs:text-sm rounded-full bg-primary/10 text-primary"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <div className="flex space-x-3">
-                    <Button size="sm" variant="outline" asChild className="flex-1">
+                  <div className="flex flex-col xs:flex-row gap-2 xs:gap-3">
+                    <Button size="sm" variant="outline" asChild className="flex-1 min-w-0">
                       <a href={project.github} target="_blank" rel="noopener noreferrer">
                         <Github className="mr-2 h-4 w-4" />
                         Code
@@ -274,7 +289,7 @@ export function ProjectsSection() {
                     </Button>
                     <Button
                       size="sm"
-                      className="flex-1 bg-gradient-primary text-primary-foreground"
+                      className="flex-1 min-w-0 bg-gradient-primary text-primary-foreground"
                       asChild
                     >
                       <a href={project.live} target="_blank" rel="noopener noreferrer">
