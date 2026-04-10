@@ -1,9 +1,40 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { ArrowDown, Download, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Scene3D } from '../3d/Scene3D';
 
+const roles = ['Full Stack Developer', 'Tech Innovator', 'UI/UX Enthusiast', '3D Web Creator'];
+
 export function HeroSection() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState('');
+  const [typing, setTyping] = useState(true);
+
+  useEffect(() => {
+    const current = roles[roleIndex];
+    let timeout: ReturnType<typeof setTimeout>;
+    if (typing) {
+      if (displayed.length < current.length) {
+        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
+      } else {
+        timeout = setTimeout(() => setTyping(false), 1800);
+      }
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
+      } else {
+        setRoleIndex((i) => (i + 1) % roles.length);
+        setTyping(true);
+      }
+    }
+    return () => clearTimeout(timeout);
+  }, [displayed, typing, roleIndex]);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section
       id="home"
@@ -30,23 +61,26 @@ export function HeroSection() {
               Welcome to my digital space 👋
             </span>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight hero-text">
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight hero-text">
               Besufikad
               <br />
-              <span className="text-gradient-secondary">
-                Kasahun
-              </span>
+              <span className="text-gradient-secondary">Kasahun</span>
             </h1>
 
+            <div className="text-xl md:text-2xl font-semibold text-primary mb-6 h-8">
+              <span>{displayed}</span>
+              <span className="animate-pulse">|</span>
+            </div>
+
             <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-              Full Stack Developer & Tech Innovator crafting modern,
-              scalable, and visually engaging digital experiences.
+              Crafting modern, scalable, and visually engaging digital experiences.
             </p>
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
               <Button
                 size="lg"
+                onClick={() => scrollTo('contact')}
                 className="bg-gradient-primary text-primary-foreground px-8 py-4 text-lg font-semibold"
               >
                 <Mail className="mr-2 h-5 w-5" />

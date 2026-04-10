@@ -121,28 +121,23 @@ export function ProjectsSection() {
       : projects.filter((project) => project.category === activeFilter);
 
   useEffect(() => {
-  const isMobile = window.innerWidth < 768; // mobile threshold
-  if (isMobile) {
-    setIsVisible(true); // force visibility on mobile
-    return; // skip observer
-  }
-
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) setIsVisible(true);
-    },
-    { threshold: 0.2 }
-  );
-
-  if (sectionRef.current) observer.observe(sectionRef.current);
-  return () => observer.disconnect();
-}, []);
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight) setIsVisible(true);
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section ref={sectionRef} id="projects" className="py-20">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 1, y: 50 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
@@ -193,84 +188,90 @@ export function ProjectsSection() {
               transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
               className="flex justify-center"
             >
-              <Card className="glass hover:glass-strong group overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-glow w-full h-full flex flex-col text-lg md:text-xl p-2 md:p-4 max-w-2xl md:max-w-3xl mx-auto">
-                <div className="relative overflow-hidden">
-                  <div
-                    className="w-full h-72 md:h-[26rem] bg-gradient-secondary flex items-center justify-center"
-                  >
-                    <div className="text-7xl md:text-8xl font-bold text-primary opacity-20">
+              <Card className="relative group overflow-hidden w-full h-full flex flex-col text-lg md:text-xl p-2 md:p-4 max-w-2xl md:max-w-3xl mx-auto bg-white/10 backdrop-blur-lg border-2 border-transparent hover:border-gradient-to-r hover:from-primary hover:to-secondary shadow-xl hover:shadow-2xl transition-all duration-300 rounded-3xl">
+                {/* Animated Gradient Border */}
+                <div className="absolute inset-0 pointer-events-none z-0 rounded-3xl border-4 border-transparent group-hover:border-gradient-to-r group-hover:from-primary group-hover:to-secondary animate-border-glow" />
+                <div className="relative z-10 overflow-hidden">
+                  {/* Banner with floating icons */}
+                  <div className="w-full h-72 md:h-[26rem] bg-gradient-to-br from-primary/80 to-secondary/80 flex items-center justify-center relative rounded-2xl shadow-lg">
+                    <div className="absolute top-6 left-8 animate-float-slow opacity-30 text-5xl md:text-6xl">
+                      <Zap />
+                    </div>
+                    <div className="absolute bottom-6 right-8 animate-float-fast opacity-30 text-5xl md:text-6xl">
+                      <Github />
+                    </div>
+                    <div className="text-7xl md:text-8xl font-extrabold text-primary-foreground opacity-30 drop-shadow-lg select-none">
                       {project.title
                         .split(" ")
                         .map((word) => word[0])
                         .join("")}
                     </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {/* Action Buttons Floating */}
+                  <div className="absolute top-6 right-6 flex space-x-3 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 z-20">
                     <Button
                       size="icon"
                       variant="secondary"
-                      className="rounded-full"
+                      className="rounded-full shadow-md hover:scale-110"
                       asChild
                     >
                       <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4" />
+                        <Github className="h-5 w-5" />
                       </a>
                     </Button>
                     <Button
                       size="icon"
                       variant="secondary"
-                      className="rounded-full"
+                      className="rounded-full shadow-md hover:scale-110"
                       asChild
                     >
                       <a href={project.live} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4" />
+                        <ExternalLink className="h-5 w-5" />
                       </a>
                     </Button>
                   </div>
+                  {/* Featured badge */}
                   {project.featured && (
-                    <div className="absolute top-4 left-4">
-                      <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm">
-                        <Zap className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium text-primary">
-                          Featured
-                        </span>
+                    <div className="absolute top-6 left-6 z-20">
+                      <div className="flex items-center space-x-2 px-4 py-1 rounded-full bg-primary/30 backdrop-blur-md shadow text-primary-foreground font-semibold text-base animate-pulse">
+                        <Zap className="h-5 w-5 text-yellow-400" />
+                        <span>Featured</span>
                       </div>
                     </div>
                   )}
                 </div>
 
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-gradient-secondary">
+                <CardContent className="relative z-10 p-8 md:p-10 flex flex-col flex-1">
+                  <h3 className="text-2xl md:text-3xl font-extrabold mb-4 text-gradient-secondary drop-shadow">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                  <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-3 mb-6">
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary"
+                        className="px-4 py-1 text-sm rounded-full bg-primary/20 text-primary font-semibold shadow"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <div className="flex space-x-3">
-                    <Button size="sm" variant="outline" asChild className="flex-1">
+                  <div className="flex space-x-4 mt-auto">
+                    <Button size="lg" variant="outline" asChild className="flex-1 font-bold border-2 border-primary/40 hover:border-primary">
                       <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="mr-2 h-4 w-4" />
+                        <Github className="mr-2 h-5 w-5" />
                         Code
                       </a>
                     </Button>
                     <Button
-                      size="sm"
-                      className="flex-1 bg-gradient-primary text-primary-foreground"
+                      size="lg"
+                      className="flex-1 bg-gradient-to-r from-primary to-secondary text-primary-foreground font-bold shadow-lg hover:from-secondary hover:to-primary"
                       asChild
                     >
                       <a href={project.live} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="mr-2 h-4 w-4" />
+                        <ExternalLink className="mr-2 h-5 w-5" />
                         Live Demo
                       </a>
                     </Button>

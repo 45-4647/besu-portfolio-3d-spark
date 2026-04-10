@@ -16,12 +16,22 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
   const { user, signOut } = useAuth();
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: 'home' },
+    { name: 'About', href: 'about' },
+    { name: 'Projects', href: 'projects' },
+    { name: 'Experience', href: 'experience' },
+    { name: 'Contact', href: 'contact' },
   ];
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      // Fire a scroll event after animation so IntersectionObservers trigger
+      setTimeout(() => window.dispatchEvent(new Event('scroll')), 600);
+    }
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,17 +63,17 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.button
                 key={item.name}
-                href={item.href}
-                className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                onClick={() => scrollTo(item.href)}
+                className="text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 {item.name}
-              </motion.a>
+              </motion.button>
             ))}
           </div>
 
@@ -136,15 +146,14 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
         >
           <div className="py-4 space-y-4">
             {navItems.map((item) => (
-              <motion.a
+              <motion.button
                 key={item.name}
-                href={item.href}
-                className="block text-foreground/80 hover:text-primary transition-colors duration-300"
-                onClick={() => setIsOpen(false)}
+                onClick={() => scrollTo(item.href)}
+                className="block w-full text-left text-foreground/80 hover:text-primary transition-colors duration-300 bg-transparent border-none cursor-pointer"
                 whileTap={{ scale: 0.95 }}
               >
                 {item.name}
-              </motion.a>
+              </motion.button>
             ))}
             
             {/* Mobile Auth */}

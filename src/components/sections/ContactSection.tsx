@@ -44,19 +44,15 @@ export function ContactSection() {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
     if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+      const rect = sectionRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight) setIsVisible(true);
     }
-
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
