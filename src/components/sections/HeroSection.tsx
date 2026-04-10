@@ -1,11 +1,10 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowDown, Download, Mail, Code2, Layers, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Scene3D } from '../3d/Scene3D';
 
 const roles = ['Full Stack Developer', 'Tech Innovator', 'UI/UX Enthusiast', '3D Web Creator'];
-
 const stats = [
   { label: 'Projects', value: '50+', icon: Layers },
   { label: 'Experience', value: '5yr', icon: Cpu },
@@ -16,69 +15,61 @@ export function HeroSection() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
   const [typing, setTyping] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Mouse parallax
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-  const orbX = useTransform(springX, [-1, 1], [-30, 30]);
-  const orbY = useTransform(springY, [-1, 1], [-30, 30]);
+  const springX = useSpring(mouseX, { stiffness: 40, damping: 18 });
+  const springY = useSpring(mouseY, { stiffness: 40, damping: 18 });
+  const orbX = useTransform(springX, [-1, 1], [-40, 40]);
+  const orbY = useTransform(springY, [-1, 1], [-40, 40]);
+  const imgX = useTransform(springX, [-1, 1], [-12, 12]);
+  const imgY = useTransform(springY, [-1, 1], [-12, 12]);
 
   useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-      const y = (e.clientY / window.innerHeight) * 2 - 1;
-      mouseX.set(x);
-      mouseY.set(y);
+    const onMove = (e: MouseEvent) => {
+      mouseX.set((e.clientX / window.innerWidth) * 2 - 1);
+      mouseY.set((e.clientY / window.innerHeight) * 2 - 1);
     };
-    window.addEventListener('mousemove', handleMouse);
-    return () => window.removeEventListener('mousemove', handleMouse);
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
   }, [mouseX, mouseY]);
 
-  // Typewriter
   useEffect(() => {
     const current = roles[roleIndex];
-    let timeout: ReturnType<typeof setTimeout>;
+    let t: ReturnType<typeof setTimeout>;
     if (typing) {
       if (displayed.length < current.length) {
-        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
+        t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
       } else {
-        timeout = setTimeout(() => setTyping(false), 1800);
+        t = setTimeout(() => setTyping(false), 1800);
       }
     } else {
       if (displayed.length > 0) {
-        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
+        t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
       } else {
         setRoleIndex((i) => (i + 1) % roles.length);
         setTyping(true);
       }
     }
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(t);
   }, [displayed, typing, roleIndex]);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden">
-      {/* 3D Background */}
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       <Scene3D />
 
-      {/* Animated orbs */}
+      {/* Parallax orbs */}
       <motion.div style={{ x: orbX, y: orbY }} className="pointer-events-none absolute inset-0 z-0">
-        <div className="orb w-[500px] h-[500px] bg-purple-600/20 top-[-100px] left-[-100px]" />
-        <div className="orb w-[400px] h-[400px] bg-blue-500/15 bottom-[-80px] right-[-80px]" />
-        <div className="orb w-[300px] h-[300px] bg-pink-500/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <div className="orb w-[600px] h-[600px] bg-violet-600/25 -top-32 -left-32" />
+        <div className="orb w-[500px] h-[500px] bg-purple-500/20 -bottom-24 -right-24" />
+        <div className="orb w-[300px] h-[300px] bg-pink-500/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       </motion.div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background/90 via-background/50 to-background/90 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/40 to-background/85 z-10" />
 
-      {/* Content */}
-      <div className="relative z-20 container mx-auto px-6 pt-20">
+      <div className="relative z-20 container mx-auto px-6 pt-24">
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
 
           {/* LEFT */}
@@ -99,8 +90,7 @@ export function HeroSection() {
             </motion.span>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight hero-text">
-              Besufikad
-              <br />
+              Besufikad<br />
               <span className="text-gradient-secondary">Kasahun</span>
             </h1>
 
@@ -116,11 +106,9 @@ export function HeroSection() {
             </div>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-              Crafting modern, scalable, and visually engaging digital experiences
-              that make an impact.
+              Crafting modern, scalable, and visually engaging digital experiences that make an impact.
             </p>
 
-            {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Button
@@ -132,7 +120,6 @@ export function HeroSection() {
                   Get In Touch
                 </Button>
               </motion.div>
-
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Button
                   variant="outline"
@@ -148,8 +135,7 @@ export function HeroSection() {
               </motion.div>
             </div>
 
-            {/* Stats */}
-            <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               {stats.map((stat, i) => {
                 const Icon = stat.icon;
                 return (
@@ -158,7 +144,8 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 + i * 0.1 }}
-                    className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-primary/10 border border-primary/20 backdrop-blur-sm"
+                    whileHover={{ scale: 1.08, y: -3 }}
+                    className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-primary/10 border border-primary/20 backdrop-blur-sm cursor-default"
                   >
                     <Icon className="h-4 w-4 text-primary" />
                     <span className="text-xl font-bold text-primary">{stat.value}</span>
@@ -169,38 +156,59 @@ export function HeroSection() {
             </div>
           </motion.div>
 
-          {/* RIGHT — image with orbiting rings */}
+          {/* RIGHT — 3D parallax image */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
+            style={{ x: imgX, y: imgY }}
             className="relative flex justify-center items-center"
           >
-            {/* Outer orbit ring */}
+            {/* Orbit rings */}
             <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full border border-primary/20 animate-spin" style={{ animationDuration: '20s' }} />
-            <div className="absolute w-[380px] h-[380px] md:w-[460px] md:h-[460px] rounded-full border border-purple-500/10 animate-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }} />
+            <div className="absolute w-[390px] h-[390px] md:w-[470px] md:h-[470px] rounded-full border border-purple-500/10 animate-spin" style={{ animationDuration: '35s', animationDirection: 'reverse' }} />
 
-            {/* Orbiting dot */}
+            {/* Orbiting dots */}
             <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] animate-spin" style={{ animationDuration: '8s' }}>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-violet-400 shadow-lg shadow-violet-400/50" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-violet-400 shadow-lg shadow-violet-400/60" />
             </div>
-            <div className="absolute w-[380px] h-[380px] md:w-[460px] md:h-[460px] animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }}>
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-pink-400 shadow-lg shadow-pink-400/50" />
+            <div className="absolute w-[390px] h-[390px] md:w-[470px] md:h-[470px] animate-spin" style={{ animationDuration: '13s', animationDirection: 'reverse' }}>
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-pink-400 shadow-lg shadow-pink-400/60" />
             </div>
 
             {/* Glow */}
-            <div className="absolute inset-0 rounded-full bg-primary/20 blur-3xl animate-glow-pulse" />
+            <div className="absolute inset-0 rounded-full bg-primary/25 blur-3xl animate-glow-pulse" />
 
             {/* Image */}
-            <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/40">
+            <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50">
               <motion.img
                 src="/hero.png"
                 alt="Besufikad Kasahun"
-                animate={{ y: [0, -12, 0] }}
+                animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-full bg-background"
               />
             </div>
+
+            {/* Floating skill badges */}
+            {[
+              { label: 'React', x: '-110%', y: '20%', delay: 1.2 },
+              { label: 'Node.js', x: '110%', y: '20%', delay: 1.4 },
+              { label: 'Three.js', x: '-90%', y: '75%', delay: 1.6 },
+              { label: 'MongoDB', x: '90%', y: '75%', delay: 1.8 },
+            ].map((badge) => (
+              <motion.div
+                key={badge.label}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: badge.delay, type: 'spring' }}
+                whileHover={{ scale: 1.15 }}
+                className="absolute px-3 py-1.5 rounded-full bg-background/80 border border-primary/30 backdrop-blur-md text-xs font-semibold text-primary shadow-lg cursor-default"
+                style={{ left: badge.x, top: badge.y }}
+              >
+                {badge.label}
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
