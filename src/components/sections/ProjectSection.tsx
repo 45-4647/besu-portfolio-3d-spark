@@ -14,6 +14,18 @@ export function ProjectsSection() {
   const projects = [
     {
       id: 1,
+      title: "The Amhara Regional Supreme Court Management System (ARSCMS)",
+      description:
+      " The Amhara Regional Supreme Court Management System (ARSCMS) is a digital platform developed to modernize court operations, improve case management efficiency, and enhance transparency within the judicial system. The system supports digital case tracking, hearing scheduling, live court broadcasting, SMS notifications, and secure role-based access.",
+      category: "fullstack",
+      image: "/api/placeholder/400/300",
+      technologies: ["livestream","mediasoup","websocket","React", "Node.js", "MongoDB", "tailwund"],
+      github: "https://github.com/45-4647",
+      live: "https://amhcourt-website.vercel.app/",
+      featured: true,
+    },
+    {
+      id: 2,
       title: "seller and Buyer communication platform",
       description:
       " Broker is a modern online marketplace platform that connects buyers and sellers directly — without involving delivery or payment system",
@@ -24,8 +36,9 @@ export function ProjectsSection() {
       live: "https://broker-fullstack.vercel.app/",
       featured: true,
     },
+    
     {
-      id: 2,
+      id: 3,
       title: "E-Commerce Platform",
       description:
         "Modern e-commerce solution with advanced features including real-time inventory, payment processing, and analytics dashboard.",
@@ -37,7 +50,7 @@ export function ProjectsSection() {
       featured: true,
     },
      {
-      id: 3,
+      id: 4,
       title: "Brain Wave Website",
       description:
         "😅😍 this project is responsive mobile based web application",
@@ -51,7 +64,7 @@ export function ProjectsSection() {
     
     
     {
-      id: 4,
+      id: 5,
       title: "3D Portfolio Experience",
       description:
         "Interactive 3D portfolio website built with Three.js and React Three Fiber for immersive user experience.",
@@ -64,7 +77,7 @@ export function ProjectsSection() {
     },
    
     {
-      id: 5,
+      id: 6,
       title: "Fitness Website",
       description:
         "i build fitness website that provide how the exercise work and where the exercise should be work ",
@@ -75,7 +88,7 @@ export function ProjectsSection() {
       featured: false,
     },
      {
-      id: 6,
+      id: 7,
       title: "iphone model Website",
       description:
         "Comprehensive iphone promotion website with real-time data visualization and reporting capabilities.",
@@ -93,7 +106,7 @@ export function ProjectsSection() {
     
     
     {
-      id: 7,
+      id: 8,
       title: "Movie Website",
       description:
         "modern movie website that provide the user to search the movie and get the information about the movie and also provide the user to buy the ticket for the movie",
