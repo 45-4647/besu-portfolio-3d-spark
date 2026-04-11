@@ -8,6 +8,17 @@ import { Card3D } from "../3d/Card3D";
 const filters = ["all", "web", "mobile", "fullstack", "3d"];
 
 const projects = [
+   {
+    id: 0,
+    title: "Village Reporting System",
+    description: "This platform allows users to easily report local problems such as infrastructure issues",
+    category: "fullstack",
+    technologies: ["React", "django", "supabase", "redis", "WebSocket"],
+    github: "https://github.com/45-4647",
+    live: "https://village-reporting-system.vercel.app/",
+    featured: true,
+    gradient: "from-violet-600 to-purple-600",
+  },
   {
     id: 1,
     title: "Court Management System",
