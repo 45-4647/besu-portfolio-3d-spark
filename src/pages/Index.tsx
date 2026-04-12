@@ -4,6 +4,7 @@ import { AboutSection } from '@/components/sections/AboutSection';
 import { ProjectsSection } from '@/components/sections/ProjectSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { ContactSection } from '@/components/sections/ContactSection';
+import { Footer } from '@/components/Footer';
 import { useState, useEffect } from 'react';
 
 const Index = () => {
@@ -32,13 +33,7 @@ const Index = () => {
         <ExperienceSection />
         <ContactSection />
       </main>
-      
-      {/* Footer */}
-      <footer className="py-8 text-center text-muted-foreground border-t border-border/50">
-        <div className="container mx-auto px-6">
-          <p>© 2024 Besufikad Kasahun. Crafted with ❤️ and cutting-edge technology.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
