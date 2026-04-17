@@ -50,7 +50,7 @@ export function AboutSection() {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-4">About Me</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Passionate full-stack developer with 5+ years building innovative solutions
+            Passionate full-stack developer with 2+ years building innovative solutions
           </p>
         </motion.div>
 
