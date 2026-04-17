@@ -127,7 +127,7 @@ export function HeroSection() {
                   className="border-primary/40 hover:border-primary hover:bg-primary/10 px-8 py-4 text-lg font-semibold backdrop-blur-sm w-full sm:w-auto"
                   asChild
                 >
-                  <a href="https://drive.google.com/drive/my-drive?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto" target="_blank" rel="noopener noreferrer">
+                  <a href="https://drive.google.com/file/d/1mJ53aUcVPYunjKC2-qjrK25j5GTCyFF8/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                     <Download className="mr-2 h-5 w-5" />
                     Download CV
                   </a>
