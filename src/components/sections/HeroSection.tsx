@@ -7,7 +7,7 @@ import { Scene3D } from '../3d/Scene3D';
 const roles = ['Full Stack Developer', 'Tech Innovator', 'UI/UX Enthusiast', '3D Web Creator'];
 const stats = [
   { label: 'Projects', value: '50+', icon: Layers },
-  { label: 'Experience', value: '5yr', icon: Cpu },
+  { label: 'Experience', value: '2yr', icon: Cpu },
   { label: 'Technologies', value: '20+', icon: Code2 },
 ];
 
@@ -106,7 +106,7 @@ export function HeroSection() {
             </div>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-              Crafting modern, scalable, and visually engaging digital experiences that make an impact.
+             Full Stack Developer specializing in MERN & Mobile apps with 2+ years experience building scalable systems. Passionate about crafting seamless user experiences and innovative solutions. Let's build something amazing together!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
@@ -127,7 +127,7 @@ export function HeroSection() {
                   className="border-primary/40 hover:border-primary hover:bg-primary/10 px-8 py-4 text-lg font-semibold backdrop-blur-sm w-full sm:w-auto"
                   asChild
                 >
-                  <a href="https://drive.google.com/file/d/17_BvRJ30b1Wvk8zQi95i3zk8JnPIWl5y/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                  <a href="https://drive.google.com/drive/my-drive?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto" target="_blank" rel="noopener noreferrer">
                     <Download className="mr-2 h-5 w-5" />
                     Download CV
                   </a>

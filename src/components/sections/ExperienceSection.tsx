@@ -25,8 +25,8 @@ const experiences = [
   },
   {
     type: "education",
-    title: "BSc in Computer Science",
-    company: "University — Ethiopia",
+    title: "BSc in Information technology",
+    company: "University — Bahirdar-Ethiopia",
     period: "2019 – 2023",
     description: "Studied software engineering, algorithms, databases, and system architecture. Graduated with distinction.",
     tech: ["Algorithms", "Data Structures", "OS", "Networking"],
