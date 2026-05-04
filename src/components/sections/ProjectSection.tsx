@@ -95,33 +95,19 @@ const projects = [
   },
 ];
 
-const CARD_W = 320;
-const GAP = 20;
+// Card width + gap — same as Testimonials approach
+const CARD_W = 340;
+const GAP = 24;
 const STEP = CARD_W + GAP;
 
 export function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [containerW, setContainerW] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const dragStartX = useRef(0);
   const isDragging = useRef(false);
   const autoTimer = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Measure the slider viewport width so centering is pixel-perfect
-  useEffect(() => {
-    const el = viewportRef.current;
-    if (!el) return;
-
-    const measure = () => setContainerW(el.getBoundingClientRect().width);
-    measure(); // immediate read
-
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [isVisible]); // re-measure once the element becomes visible
 
   useEffect(() => {
     if (sectionRef.current) {
@@ -146,7 +132,7 @@ export function ProjectsSection() {
   useEffect(() => {
     startAuto();
     return () => { if (autoTimer.current) clearInterval(autoTimer.current); };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const goTo = (i: number) => {
@@ -170,24 +156,22 @@ export function ProjectsSection() {
     setTimeout(() => { isDragging.current = false; }, 0);
   };
 
-  // Pixel-perfect centering using measured container width
-  // card[current] centre = containerW/2
-  // translateX = containerW/2 - CARD_W/2 - current*STEP
-  const translateX = containerW > 0
-    ? containerW / 2 - CARD_W / 2 - current * STEP
-    : 0;
-
   return (
-    <section ref={sectionRef} id="projects" className="relative py-24 bg-white dark:bg-[#0a0a0a] overflow-hidden transition-colors duration-300">
+    <section
+      ref={sectionRef}
+      id="projects"
+      className="relative py-24 bg-white dark:bg-[#0a0a0a] overflow-hidden transition-colors duration-300"
+    >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10">
-        {/* Header */}
+      <div className="relative z-10 container mx-auto px-6">
+
+        {/* Header — same pattern as Testimonials */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12 px-6"
+          className="text-center mb-12"
         >
           <span className="inline-block px-4 py-1.5 rounded-full border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-white/5 text-sm text-gray-600 dark:text-white/70 mb-4">
             My Work
@@ -200,148 +184,141 @@ export function ProjectsSection() {
           </p>
         </motion.div>
 
-        {/* ── Slider ── */}
+        {/* ── Slider ── same centering technique as Testimonials ── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          {/* viewport — always rendered so ResizeObserver can measure it */}
-          <div
-            ref={viewportRef}
-            className="relative overflow-hidden"
-            style={{ height: 420 }}
-          >
-          {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+          {/*
+            Outer: overflow-hidden clip window.
+            Inner track: flex row, shifted left by (current * STEP).
+            The track starts with a left padding of 50% - CARD_W/2 so card[0]
+            is centred. Each step moves it left by STEP px.
+            This is pure CSS — no JS measurement needed.
+          */}
+          <div className="relative overflow-hidden" style={{ height: 420 }}>
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
 
-          <div
-            ref={trackRef}
-            className="absolute inset-y-0 left-0 flex items-center select-none"
-            style={{
-              gap: GAP,
-              transform: `translateX(${translateX}px)`,
-              transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-              cursor: 'grab',
-            }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-          >
-            {projects.map((project, index) => {
-              const isActive = index === current;
-              const dist = Math.abs(index - current);
-              return (
-                <div
-                  key={project.id}
-                  onClick={() => { if (!isDragging.current) goTo(index); }}
-                  style={{
-                    width: CARD_W,
-                    flexShrink: 0,
-                    transform: `scale(${isActive ? 1 : dist === 1 ? 0.9 : 0.82})`,
-                    opacity: isActive ? 1 : dist === 1 ? 0.6 : 0.35,
-                    transition: 'transform 0.4s ease, opacity 0.4s ease',
-                  }}
-                  className="group"
-                >
-                  <div className={`rounded-2xl overflow-hidden border bg-white dark:bg-[#111] transition-all duration-300 ${
-                    isActive
-                      ? 'border-gray-300 dark:border-white/25 shadow-2xl shadow-purple-500/20'
-                      : 'border-gray-100 dark:border-white/5 cursor-pointer'
-                  }`}>
-                    {/* Image */}
-                    <div className="relative overflow-hidden" style={{ height: 200 }}>
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        draggable={false}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            {/*
+              The trick: paddingLeft = calc(50% - CARD_W/2)
+              This pushes card[0] so its centre aligns with the container centre.
+              Then translateX(-current * STEP) scrolls to the active card.
+              No JS width measurement — pure CSS centering like Testimonials.
+            */}
+            <div
+              ref={trackRef}
+              className="absolute inset-y-0 left-0 right-0 flex items-center select-none"
+              style={{
+                paddingLeft: `calc(50% - ${CARD_W / 2}px)`,
+                paddingRight: `calc(50% - ${CARD_W / 2}px)`,
+                gap: GAP,
+                transform: `translateX(-${current * STEP}px)`,
+                transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                cursor: 'grab',
+              }}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+            >
+              {projects.map((project, index) => {
+                const isActive = index === current;
+                const dist = Math.abs(index - current);
+                return (
+                  <div
+                    key={project.id}
+                    onClick={() => { if (!isDragging.current) goTo(index); }}
+                    style={{
+                      width: CARD_W,
+                      minWidth: CARD_W,
+                      flexShrink: 0,
+                      transform: `scale(${isActive ? 1 : dist === 1 ? 0.9 : 0.82})`,
+                      opacity: isActive ? 1 : dist === 1 ? 0.6 : 0.35,
+                      transition: 'transform 0.4s ease, opacity 0.4s ease',
+                    }}
+                    className="group"
+                  >
+                    <div className={`rounded-2xl overflow-hidden border bg-white dark:bg-[#111] transition-all duration-300 ${
+                      isActive
+                        ? 'border-gray-300 dark:border-white/25 shadow-2xl shadow-purple-500/20'
+                        : 'border-gray-100 dark:border-white/5 cursor-pointer'
+                    }`}>
+                      {/* Image */}
+                      <div className="relative overflow-hidden" style={{ height: 200 }}>
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          draggable={false}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-purple-500/80 text-white text-xs font-semibold">
+                          {project.category}
+                        </span>
+                        {isActive && (
+                          <div className="absolute top-3 right-3 flex gap-2">
+                            <a href={project.github} target="_blank" rel="noopener noreferrer"
+                              onClick={e => e.stopPropagation()}
+                              className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center hover:bg-black/80 transition-colors">
+                              <Github className="h-3.5 w-3.5 text-white" />
+                            </a>
+                            <a href={project.live} target="_blank" rel="noopener noreferrer"
+                              onClick={e => e.stopPropagation()}
+                              className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center hover:bg-black/80 transition-colors">
+                              <ExternalLink className="h-3.5 w-3.5 text-white" />
+                            </a>
+                          </div>
+                        )}
+                      </div>
 
-                      {/* Category badge */}
-                      <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-purple-500/80 text-white text-xs font-semibold">
-                        {project.category}
-                      </span>
-
-                      {/* Action buttons — active card only */}
-                      {isActive && (
-                        <div className="absolute top-3 right-3 flex gap-2">
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={e => e.stopPropagation()}
-                            className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center hover:bg-black/80 transition-colors"
-                          >
-                            <Github className="h-3.5 w-3.5 text-white" />
-                          </a>
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={e => e.stopPropagation()}
-                            className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center hover:bg-black/80 transition-colors"
-                          >
-                            <ExternalLink className="h-3.5 w-3.5 text-white" />
-                          </a>
+                      {/* Info */}
+                      <div className="p-5">
+                        <h3 className="text-gray-900 dark:text-white font-bold text-sm mb-1.5 truncate">{project.title}</h3>
+                        <p className="text-gray-500 dark:text-white/50 text-xs leading-relaxed mb-3 line-clamp-2">{project.description}</p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {project.technologies.slice(0, 4).map(t => (
+                            <span key={t} className="px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/55">
+                              {t}
+                            </span>
+                          ))}
                         </div>
-                      )}
-                    </div>
-
-                    {/* Info */}
-                    <div className="p-5">
-                      <h3 className="text-gray-900 dark:text-white font-bold text-sm mb-1.5 truncate">{project.title}</h3>
-                      <p className="text-gray-500 dark:text-white/50 text-xs leading-relaxed mb-3 line-clamp-2">{project.description}</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.technologies.slice(0, 4).map(t => (
-                          <span key={t} className="px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/55">
-                            {t}
-                          </span>
-                        ))}
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+
+          {/* Controls — same as Testimonials */}
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button onClick={prev}
+              className="w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white transition-all">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            <div className="flex gap-1.5">
+              {projects.map((_, i) => (
+                <button key={i} onClick={() => goTo(i)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === current ? 'w-6 h-2 bg-purple-500' : 'w-2 h-2 bg-gray-300 dark:bg-white/20 hover:bg-gray-400 dark:hover:bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button onClick={next}
+              className="w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white transition-all">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
+          <p className="text-center text-gray-400 dark:text-white/25 text-xs mt-2">
+            {current + 1} / {projects.length} &nbsp;·&nbsp; drag or swipe to browse
+          </p>
         </motion.div>
-
-        {/* Controls */}
-        <div className="flex items-center justify-center gap-4 mt-6 px-6">
-          <button
-            onClick={prev}
-            className="w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white transition-all"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          <div className="flex gap-1.5">
-            {projects.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className={`rounded-full transition-all duration-300 ${
-                  i === current ? 'w-6 h-2 bg-purple-500' : 'w-2 h-2 bg-gray-300 dark:bg-white/20 hover:bg-gray-400 dark:hover:bg-white/40'
-                }`}
-              />
-            ))}
-          </div>
-
-          <button
-            onClick={next}
-            className="w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white transition-all"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-
-        <p className="text-center text-gray-400 dark:text-white/25 text-xs mt-2">
-          {current + 1} / {projects.length} &nbsp;·&nbsp; drag or swipe to browse
-        </p>
       </div>
     </section>
   );
