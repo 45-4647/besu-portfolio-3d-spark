@@ -57,7 +57,7 @@ export function HeroSection() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0a0a]">
       <Scene3D />
 
       {/* Parallax orbs */}
