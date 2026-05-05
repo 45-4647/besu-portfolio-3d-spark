@@ -49,10 +49,10 @@ export function CTASection() {
         }}
       />
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/70" />
+      {/* Dark overlay — slightly lighter in light mode */}
+      <div className="absolute inset-0 bg-black/55 dark:bg-black/70" />
       {/* Purple tint */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-violet-900/20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/25 via-transparent to-violet-900/15" />
 
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center min-h-[480px] py-24 px-6">

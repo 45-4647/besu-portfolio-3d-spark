@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ExternalLink, Github, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { FullscreenModal } from "../FullscreenModal";
 
 const projects = [
   {
@@ -101,6 +102,7 @@ const VISIBLE = 3;
 export function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [current, setCurrent] = useState(0);
+  const [showAll, setShowAll] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const autoTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -246,16 +248,27 @@ export function ProjectsSection() {
                         )}
                       </div>
 
-                      {/* View Project button — matches reference */}
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 text-gray-700 dark:text-white/70 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400 text-sm font-medium transition-all group"
-                      >
-                        View Project
-                        <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </a>
+                      {/* Buttons row */}
+                      <div className="flex gap-2">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/60 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400 text-sm font-medium transition-all"
+                          title="GitHub"
+                        >
+                          <Github className="w-4 h-4" />
+                        </a>
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-between px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 text-gray-700 dark:text-white/70 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400 text-sm font-medium transition-all group"
+                        >
+                          View Project
+                          <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </a>
+                      </div>
                     </div>
                   </motion.div>
                 );
@@ -281,16 +294,95 @@ export function ProjectsSection() {
 
         {/* View All button */}
         <div className="flex justify-center mt-8">
-          <a
-            href="https://github.com/45-4647"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setShowAll(true)}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white/70 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400 text-sm font-medium transition-all"
           >
             View All Projects <ArrowRight className="w-4 h-4" />
-          </a>
+          </button>
         </div>
       </div>
+
+      {/* ── All Projects fullscreen modal ── */}
+      <FullscreenModal
+        open={showAll}
+        onClose={() => setShowAll(false)}
+        videoBg="https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_25fps.mp4"
+        videoPoster="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&h=1080&fit=crop"
+      >
+        <div className="min-h-screen py-20 px-6">
+          <div className="max-w-6xl mx-auto">
+            {/* Modal header */}
+            <div className="text-center mb-12">
+              <span className="inline-block px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-sm text-white/70 mb-4">
+                All Projects
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">
+                My <span className="text-purple-400">Portfolio</span>
+              </h2>
+              <p className="text-white/50 text-lg max-w-2xl mx-auto">
+                Every project I've built — from full-stack apps to 3D experiences.
+              </p>
+            </div>
+
+            {/* All projects grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.06 }}
+                  className="group rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:border-purple-400/50 hover:bg-white/10 transition-all duration-300"
+                >
+                  {/* Image */}
+                  <div className="relative overflow-hidden" style={{ height: 180 }}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-sm text-white text-xs font-medium border border-white/20">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  {/* Info */}
+                  <div className="p-5">
+                    <h3 className="text-white font-bold text-base mb-1.5">{project.title}</h3>
+                    <p className="text-white/50 text-xs leading-relaxed mb-4 line-clamp-2">{project.description}</p>
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.technologies.map(t => (
+                        <span key={t} className="px-2 py-0.5 text-xs rounded-full bg-white/5 border border-white/10 text-white/55">{t}</span>
+                      ))}
+                    </div>
+                    <div className="flex gap-2">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl border border-white/10 text-white/60 hover:border-purple-400 hover:text-purple-400 text-sm font-medium transition-all"
+                      >
+                        <Github className="w-4 h-4" />
+                      </a>
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-between px-4 py-2.5 rounded-xl border border-white/10 text-white/70 hover:border-purple-400 hover:text-purple-400 text-sm font-medium transition-all group/btn"
+                      >
+                        View Project
+                        <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </FullscreenModal>
     </section>
   );
 }

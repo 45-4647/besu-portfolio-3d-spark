@@ -164,8 +164,17 @@ export function ProcessSection() {
                 </ul>
               </div>
 
-              {/* RIGHT — dark visual card */}
-              <div className="relative rounded-2xl overflow-hidden bg-gray-900 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 min-h-[260px] flex items-center justify-center">
+              {/* RIGHT — colored visual card, unique per step */}
+              <div className={`relative rounded-2xl overflow-hidden border border-white/10 dark:border-white/5 min-h-[260px] flex items-center justify-center bg-gradient-to-br ${
+                [
+                  'from-violet-700 to-purple-900',
+                  'from-blue-700 to-cyan-900',
+                  'from-pink-700 to-rose-900',
+                  'from-emerald-700 to-teal-900',
+                  'from-orange-600 to-amber-800',
+                  'from-indigo-700 to-violet-900',
+                ][activeStep]
+              }`}>
                 {/* Background glow blobs */}
                 <div className="absolute w-32 h-32 bg-purple-600/20 rounded-full blur-3xl top-4 left-8 pointer-events-none" />
                 <div className="absolute w-24 h-24 bg-violet-500/15 rounded-full blur-2xl bottom-4 right-8 pointer-events-none" />

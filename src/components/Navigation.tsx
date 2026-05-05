@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Briefcase, Sun, Moon } from 'lucide-react';
 
 const navItems = [
-  { name: 'Home',       href: 'home' },
-  { name: 'About Me',   href: 'about' },
-  { name: 'Portfolio',  href: 'projects' },
-  { name: 'Process',    href: 'process' },
-  { name: 'Pricing',    href: 'pricing' },
-  { name: 'Reviews',    href: 'testimonials' },
+  { name: 'Home',        href: 'home' },
+  { name: 'About Me',    href: 'about' },
+  { name: 'Portfolio',   href: 'projects' },
+  { name: 'Experience',  href: 'experience' },
+  { name: 'Process',     href: 'process' },
+  { name: 'Pricing',     href: 'pricing' },
+  { name: 'Reviews',     href: 'testimonials' },
 ];
 
 interface NavigationProps {

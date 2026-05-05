@@ -120,7 +120,7 @@ export function ServicesSection() {
     <section
       ref={sectionRef}
       id="services"
-      className="relative py-20 bg-gray-100 dark:bg-[#0a0a0a] overflow-hidden transition-colors duration-300"
+      className="relative py-20 bg-gray-100 dark:bg-black overflow-hidden transition-colors duration-300"
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-100/60 dark:from-purple-900/25 via-transparent to-violet-100/40 dark:to-violet-900/15 pointer-events-none" />
