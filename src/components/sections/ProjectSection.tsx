@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { ExternalLink, Github, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 const projects = [
   {
@@ -8,7 +8,7 @@ const projects = [
     title: "Village Reporting System",
     category: "Full Stack",
     description: "Platform allowing users to report local infrastructure problems with real-time tracking and admin dashboard.",
-    technologies: ["React", "Django", "Supabase", "Redis", "WebSocket"],
+    technologies: ["React", "Django", "Supabase", "Redis"],
     github: "https://github.com/45-4647",
     live: "https://village-reporting-system.vercel.app/",
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop",
@@ -18,7 +18,7 @@ const projects = [
     title: "Court Management System",
     category: "Full Stack",
     description: "Digital platform modernizing court operations with live broadcasting, case tracking, SMS notifications, and secure role-based access.",
-    technologies: ["React", "Node.js", "MongoDB", "mediasoup", "WebSocket"],
+    technologies: ["React", "Node.js", "MongoDB", "WebSocket"],
     github: "https://github.com/45-4647",
     live: "https://amhcourt-website.vercel.app/",
     image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=500&fit=crop",
@@ -88,20 +88,21 @@ const projects = [
     title: "Movie Website",
     category: "Full Stack",
     description: "Modern movie platform with search, detailed info pages, and ticket booking powered by a live movie API.",
-    technologies: ["React", "Next.js", "Node.js", "MongoDB", "Stripe"],
+    technologies: ["React", "Next.js", "Node.js", "Stripe"],
     github: "https://github.com/45-4647/movie_website",
     live: "https://modern-movie-six.vercel.app/",
     image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&h=500&fit=crop",
   },
 ];
 
+// Show 3 cards at a time, middle one is active
+const VISIBLE = 3;
+
 export function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [current, setCurrent] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const autoTimer = useRef<ReturnType<typeof setInterval> | null>(null);
-  const isScrolling = useRef(false);
 
   useEffect(() => {
     if (sectionRef.current) {
@@ -116,31 +117,11 @@ export function ProjectsSection() {
     return () => obs.disconnect();
   }, []);
 
-  // Track which card is centred via scroll position
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      if (isScrolling.current) return;
-      const cardW = el.firstElementChild?.clientWidth ?? 320;
-      const gap = 24;
-      const step = cardW + gap;
-      const idx = Math.round(el.scrollLeft / step);
-      setCurrent(Math.max(0, Math.min(projects.length - 1, idx)));
-    };
-    el.addEventListener('scroll', onScroll, { passive: true });
-    return () => el.removeEventListener('scroll', onScroll);
-  }, []);
-
   const startAuto = () => {
     if (autoTimer.current) clearInterval(autoTimer.current);
     autoTimer.current = setInterval(() => {
-      setCurrent(c => {
-        const next = (c + 1) % projects.length;
-        scrollToCard(next);
-        return next;
-      });
-    }, 2000);
+      setCurrent(c => (c + 1) % projects.length);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -149,230 +130,166 @@ export function ProjectsSection() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const scrollToCard = (idx: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardW = el.firstElementChild?.clientWidth ?? 320;
-    const gap = 24;
-    const step = cardW + gap;
-    isScrolling.current = true;
-    el.scrollTo({ left: idx * step, behavior: 'smooth' });
-    setTimeout(() => { isScrolling.current = false; }, 600);
-  };
-
   const goTo = (i: number) => {
-    const idx = Math.max(0, Math.min(projects.length - 1, i));
-    setCurrent(idx);
-    scrollToCard(idx);
+    setCurrent(((i % projects.length) + projects.length) % projects.length);
     startAuto();
   };
+
+  // Build the 3 visible indices: [prev, current, next]
+  const indices = [-1, 0, 1].map(offset =>
+    ((current + offset) % projects.length + projects.length) % projects.length
+  );
 
   return (
     <section
       ref={sectionRef}
       id="projects"
-      className="relative py-24 bg-[#0a0a0a] overflow-hidden"
+      className="relative py-24 bg-gray-50 dark:bg-[#0a0a0a] overflow-hidden transition-colors duration-300"
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10">
+      <div className="relative z-10 container mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-12 px-6"
+          className="text-center mb-12"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-sm text-white/70 mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-gray-200 dark:border-white/20 bg-white dark:bg-white/5 text-sm text-gray-600 dark:text-white/70 mb-4">
             My Work
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">
-            Featured <span className="text-purple-400">Projects</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3">
+            Featured <span className="text-purple-500 dark:text-purple-400">Projects</span>
           </h2>
-          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 dark:text-white/50 text-lg max-w-2xl mx-auto">
             A selection of my most impactful work across various industries and technologies.
           </p>
         </motion.div>
 
-        {/* ── Scroll-snap slider ── */}
+        {/* 3-card slider */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="relative"
         >
-          {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none" />
-
-          {/*
-            scroll-snap-type: x mandatory  → browser snaps each card to centre
-            scroll-padding-inline: 50%     → snap point is the viewport centre
-            Each card has scroll-snap-align: center
-            Links work perfectly because we never intercept pointer events.
-          */}
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto pb-4"
-            style={{
-              scrollSnapType: 'x mandatory',
-              scrollPaddingInline: '50%',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch',
-            }}
-          >
-            {/* Left spacer so first card can snap to centre */}
-            <div className="shrink-0" style={{ width: 'calc(50vw - 160px)' }} />
-
-            {projects.map((project, index) => {
-              const isActive = index === current;
-              const dist = Math.abs(index - current);
-
-              return (
-                <div
-                  key={project.id}
-                  style={{
-                    scrollSnapAlign: 'center',
-                    width: 320,
-                    minWidth: 320,
-                    flexShrink: 0,
-                    transform: `scale(${isActive ? 1 : dist === 1 ? 0.92 : 0.84})`,
-                    opacity: isActive ? 1 : dist === 1 ? 0.6 : 0.35,
-                    transition: 'transform 0.4s ease, opacity 0.4s ease',
-                  }}
-                >
-                  <div className={`rounded-2xl overflow-hidden border bg-[#111] h-full ${
-                    isActive
-                      ? 'border-purple-500/40 shadow-2xl shadow-purple-500/20'
-                      : 'border-white/5'
-                  }`}>
-                    {/* Image */}
-                    <div className="relative overflow-hidden" style={{ height: 190 }}>
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                        draggable={false}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-
-                      <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-purple-500/90 text-white text-xs font-semibold">
-                        {project.category}
-                      </span>
-
-                      {/* Icon links — always on top, always clickable */}
-                      <div className="absolute top-3 right-3 flex gap-2 z-20">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-sm flex items-center justify-center hover:bg-purple-600 transition-colors"
-                          title="View Code"
-                        >
-                          <Github className="h-3.5 w-3.5 text-white" />
-                        </a>
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-8 h-8 rounded-full bg-black/70 backdrop-blur-sm flex items-center justify-center hover:bg-purple-600 transition-colors"
-                          title="Live Demo"
-                        >
-                          <ExternalLink className="h-3.5 w-3.5 text-white" />
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Info */}
-                    <div className="p-5">
-                      <h3 className="text-white font-bold text-sm mb-1.5 truncate">{project.title}</h3>
-                      <p className="text-white/50 text-xs leading-relaxed mb-3 line-clamp-2">{project.description}</p>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {project.technologies.slice(0, 4).map(t => (
-                          <span key={t} className="px-2 py-0.5 text-xs rounded-full bg-white/5 border border-white/10 text-white/55">
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Text links */}
-                      <div className="flex gap-2">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-white/10 text-white/60 hover:border-purple-400 hover:text-purple-400 text-xs font-semibold transition-all"
-                        >
-                          <Github className="h-3.5 w-3.5" /> Code
-                        </a>
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl bg-purple-500 hover:bg-purple-400 text-white text-xs font-semibold transition-all"
-                        >
-                          <ExternalLink className="h-3.5 w-3.5" /> Live Demo
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-
-            {/* Right spacer */}
-            <div className="shrink-0" style={{ width: 'calc(50vw - 160px)' }} />
-          </div>
-        </motion.div>
-
-        {/* Controls */}
-        <div className="flex items-center justify-center gap-4 mt-4 px-6">
+          {/* Prev arrow */}
           <button
-            onClick={() => goTo(current - 1 < 0 ? projects.length - 1 : current - 1)}
-            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all"
+            onClick={() => goTo(current - 1)}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-20 w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-white dark:bg-[#111] shadow-md flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white hover:border-purple-400 transition-all"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <div className="flex gap-1.5">
-            {projects.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className={`rounded-full transition-all duration-300 ${
-                  i === current ? 'w-6 h-2 bg-purple-400' : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-                }`}
-              />
-            ))}
-          </div>
-
+          {/* Next arrow */}
           <button
-            onClick={() => goTo((current + 1) % projects.length)}
-            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all"
+            onClick={() => goTo(current + 1)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-20 w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-white dark:bg-[#111] shadow-md flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white hover:border-purple-400 transition-all"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
+
+          {/* Cards grid — always 3 visible */}
+          <div className="grid grid-cols-3 gap-5 px-8">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {indices.map((projIdx, pos) => {
+                const project = projects[projIdx];
+                const isCenter = pos === 1;
+                return (
+                  <motion.div
+                    key={`${projIdx}-${current}`}
+                    initial={{ opacity: 0, x: pos === 0 ? -40 : pos === 2 ? 40 : 0 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className={`rounded-2xl overflow-hidden border bg-white dark:bg-[#111] transition-all duration-300 ${
+                      isCenter
+                        ? 'border-purple-400 dark:border-purple-500/50 shadow-2xl shadow-purple-500/15 scale-100'
+                        : 'border-gray-100 dark:border-white/5 opacity-70 scale-95'
+                    }`}
+                  >
+                    {/* Screenshot image */}
+                    <div className="relative overflow-hidden" style={{ height: 180 }}>
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                      {/* Category tag — bottom left like reference */}
+                      <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-sm text-white text-xs font-medium border border-white/20">
+                        {project.category}
+                      </span>
+                    </div>
+
+                    {/* Info */}
+                    <div className="p-5">
+                      <h3 className="text-gray-900 dark:text-white font-bold text-base mb-1.5">
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-500 dark:text-white/50 text-xs leading-relaxed mb-3 line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      {/* Tech tags */}
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {project.technologies.map(t => (
+                          <span key={t} className="px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-white/55">
+                            {t}
+                          </span>
+                        ))}
+                        {project.technologies.length > 3 && (
+                          <span className="px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/40">
+                            +{project.technologies.length - 3}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* View Project button — matches reference */}
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 text-gray-700 dark:text-white/70 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400 text-sm font-medium transition-all group"
+                      >
+                        View Project
+                        <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </a>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-8">
+          {projects.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === current
+                  ? 'w-6 h-2 bg-purple-500'
+                  : 'w-2 h-2 bg-gray-300 dark:bg-white/20 hover:bg-gray-400 dark:hover:bg-white/40'
+              }`}
+            />
+          ))}
         </div>
 
-        <p className="text-center text-white/25 text-xs mt-2">
-          {current + 1} / {projects.length} &nbsp;·&nbsp; scroll or swipe to browse
-        </p>
-
-        {/* Active project detail */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
-            className="mt-6 max-w-xl mx-auto text-center px-6"
+        {/* View All button */}
+        <div className="flex justify-center mt-8">
+          <a
+            href="https://github.com/45-4647"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 dark:border-white/20 text-gray-700 dark:text-white/70 hover:border-purple-400 hover:text-purple-600 dark:hover:text-purple-400 text-sm font-medium transition-all"
           >
-            <h3 className="text-base font-bold text-white mb-1">{projects[current].title}</h3>
-            <p className="text-white/40 text-sm leading-relaxed">{projects[current].description}</p>
-          </motion.div>
-        </AnimatePresence>
+            View All Projects <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
       </div>
     </section>
   );

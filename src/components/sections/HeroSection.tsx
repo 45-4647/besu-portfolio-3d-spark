@@ -57,7 +57,7 @@ export function HeroSection() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0a0a]">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-gray-50 dark:bg-[#0a0a0a] transition-colors duration-300">
       <Scene3D />
 
       {/* Parallax orbs */}
@@ -67,7 +67,7 @@ export function HeroSection() {
         <div className="orb w-[300px] h-[300px] bg-pink-500/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       </motion.div>
 
-      <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/40 to-background/85 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50/85 dark:from-black/85 via-transparent to-gray-50/85 dark:to-black/85 z-10" />
 
       <div className="relative z-20 container mx-auto px-6 pt-24">
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
@@ -105,7 +105,7 @@ export function HeroSection() {
               >|</motion.span>
             </div>
 
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-600 dark:text-muted-foreground mb-8 leading-relaxed">
              Full Stack Developer specializing in MERN & Mobile apps with 2+ years experience building scalable systems. Passionate about crafting seamless user experiences and innovative solutions. Let's build something amazing together!
             </p>
 
@@ -203,7 +203,7 @@ export function HeroSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: badge.delay, type: 'spring' }}
                 whileHover={{ scale: 1.15 }}
-                className="absolute px-3 py-1.5 rounded-full bg-background/80 border border-primary/30 backdrop-blur-md text-xs font-semibold text-primary shadow-lg cursor-default"
+                className="absolute px-3 py-1.5 rounded-full bg-white/90 dark:bg-background/80 border border-primary/30 backdrop-blur-md text-xs font-semibold text-primary shadow-lg cursor-default"
                 style={{ left: badge.x, top: badge.y }}
               >
                 {badge.label}
@@ -224,7 +224,7 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
+          className="flex flex-col items-center text-gray-500 dark:text-muted-foreground hover:text-primary transition-colors"
         >
           <span className="text-sm mb-2">Scroll to explore</span>
           <ArrowDown className="h-5 w-5" />

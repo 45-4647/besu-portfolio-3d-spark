@@ -2,6 +2,7 @@ import { Navigation } from '@/components/Navigation';
 import { ScrollSection } from '@/components/ScrollSection';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { AboutSection } from '@/components/sections/AboutSection';
+import { ServicesSection } from '@/components/sections/ServicesSection';
 import { ProjectsSection } from '@/components/sections/ProjectSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { PricingSection } from '@/components/sections/PricingSection';
@@ -34,57 +35,19 @@ const Index = () => {
       <Navigation darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
       <main>
-        {/*
-          ── STACK ZONE (Hero → About → Projects) ──
-          These three sections use sticky card-stack: each one shrinks and
-          fades as the next slides over it, creating a layered intro effect.
-          The stack zone ends after Projects — everything below scrolls normally.
-        */}
-        <div className="relative">
-          {/* Hero is the base card — no shrink needed, just sits at top */}
-          <div className="sticky top-0 z-10">
-            <HeroSection />
-          </div>
+        {/* Hero — no scroll animation, loads immediately */}
+        <HeroSection />
 
-          {/* About slides over Hero */}
-          <ScrollSection stack>
-            <AboutSection />
-          </ScrollSection>
-
-          {/* Projects slides over About */}
-          <ScrollSection stack>
-            <ProjectsSection />
-          </ScrollSection>
-        </div>
-
-        {/*
-          ── NORMAL SCROLL ZONE ──
-          Sections below scroll naturally with a smooth fade-up-on-enter.
-          No sticky, no stacking — clean and readable.
-        */}
-        <ScrollSection>
-          <ProcessSection />
-        </ScrollSection>
-
-        <ScrollSection>
-          <PricingSection />
-        </ScrollSection>
-
-        <ScrollSection>
-          <TestimonialsSection />
-        </ScrollSection>
-
-        <ScrollSection>
-          <ArticlesSection />
-        </ScrollSection>
-
-        <ScrollSection>
-          <CTASection />
-        </ScrollSection>
-
-        <ScrollSection>
-          <ContactSection />
-        </ScrollSection>
+        {/* Every section below fades up smoothly as it enters the viewport */}
+        <ScrollSection><AboutSection /></ScrollSection>
+        <ScrollSection><ServicesSection /></ScrollSection>
+        <ScrollSection><ProjectsSection /></ScrollSection>
+        <ScrollSection><ProcessSection /></ScrollSection>
+        <ScrollSection><PricingSection /></ScrollSection>
+        <ScrollSection><TestimonialsSection /></ScrollSection>
+        <ScrollSection><ArticlesSection /></ScrollSection>
+        <ScrollSection><CTASection /></ScrollSection>
+        <ScrollSection><ContactSection /></ScrollSection>
       </main>
 
       <Footer />

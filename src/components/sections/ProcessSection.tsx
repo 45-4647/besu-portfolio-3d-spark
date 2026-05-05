@@ -3,12 +3,36 @@ import { useEffect, useRef, useState } from 'react';
 import { Search, FileText, Palette, Code2, TestTube, Rocket, Check } from 'lucide-react';
 
 const steps = [
-  { id: 1, title: 'Discovery', icon: Search, description: 'Understanding your goals, target audience, and project requirements through in-depth consultation.' },
-  { id: 2, title: 'Planning', icon: FileText, description: 'Creating a detailed roadmap, wireframes, and technical architecture for your project.' },
-  { id: 3, title: 'Design', icon: Palette, description: 'Crafting visually stunning and user-friendly interfaces that align with your brand.' },
-  { id: 4, title: 'Development', icon: Code2, description: 'Building robust, scalable, and performant solutions using cutting-edge technologies.' },
-  { id: 5, title: 'Testing', icon: TestTube, description: 'Rigorous quality assurance to ensure flawless performance across all devices.' },
-  { id: 6, title: 'Launch', icon: Rocket, description: 'Deploying your project and providing ongoing support for continued success.' },
+  {
+    id: 1, title: 'Discovery', icon: Search,
+    description: 'Understanding your goals, target audience, and project requirements through in-depth consultation.',
+    bullets: ['Business goal analysis', 'Competitor research', 'User persona definition', 'Scope & timeline planning'],
+  },
+  {
+    id: 2, title: 'Planning', icon: FileText,
+    description: 'Creating a detailed roadmap, wireframes, and technical architecture for your project.',
+    bullets: ['Project roadmap creation', 'Wireframe sketching', 'Tech stack selection', 'Milestone definition'],
+  },
+  {
+    id: 3, title: 'Design', icon: Palette,
+    description: 'Crafting visually stunning and user-friendly interfaces that align with your brand.',
+    bullets: ['Wireframing', 'UI/UX design', 'Prototype development', 'Client feedback integration', 'Design finalization'],
+  },
+  {
+    id: 4, title: 'Development', icon: Code2,
+    description: 'Building robust, scalable, and performant solutions using cutting-edge technologies.',
+    bullets: ['Frontend development', 'Backend & API setup', 'Database architecture', 'Third-party integrations'],
+  },
+  {
+    id: 5, title: 'Testing', icon: TestTube,
+    description: 'Rigorous quality assurance to ensure flawless performance across all devices.',
+    bullets: ['Cross-browser testing', 'Mobile responsiveness', 'Performance audits', 'Bug fixing & QA'],
+  },
+  {
+    id: 6, title: 'Launch', icon: Rocket,
+    description: 'Deploying your project and providing ongoing support for continued success.',
+    bullets: ['Production deployment', 'Domain & SSL setup', 'Analytics integration', 'Post-launch support'],
+  },
 ];
 
 export function ProcessSection() {
@@ -41,11 +65,12 @@ export function ProcessSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 container mx-auto px-6">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <span className="inline-block px-4 py-1.5 rounded-full border border-gray-200 dark:border-white/20 bg-gray-100 dark:bg-white/5 text-sm text-gray-600 dark:text-white/70 mb-4">
             My Process
@@ -58,14 +83,16 @@ export function ProcessSection() {
           </p>
         </motion.div>
 
-        {/* Timeline */}
+        {/* ── Step timeline ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="relative flex items-start justify-between mb-12 max-w-4xl mx-auto px-4"
+          className="relative flex items-start justify-between mb-10 max-w-4xl mx-auto px-2"
         >
-          <div className="absolute top-5 left-4 right-4 h-px bg-gray-200 dark:bg-white/10 z-0" />
+          {/* Connector line */}
+          <div className="absolute top-5 left-2 right-2 h-px bg-gray-200 dark:bg-white/10 z-0" />
+
           {steps.map((step, index) => {
             const isActive = index === activeStep;
             const isCompleted = index < activeStep;
@@ -80,7 +107,7 @@ export function ProcessSection() {
                         ? 'bg-gray-900 dark:bg-white text-white dark:text-black border-gray-900 dark:border-white shadow-lg'
                         : isCompleted
                         ? 'bg-purple-500 border-purple-500 text-white'
-                        : 'bg-transparent border-gray-300 dark:border-white/30 text-gray-400 dark:text-white/50 hover:border-gray-400 dark:hover:border-white/60'
+                        : 'bg-white dark:bg-transparent border-gray-300 dark:border-white/30 text-gray-400 dark:text-white/50 hover:border-gray-400 dark:hover:border-white/60'
                     }`}
                   >
                     {isCompleted ? <Check className="w-4 h-4" /> : step.id}
@@ -98,8 +125,8 @@ export function ProcessSection() {
           })}
         </motion.div>
 
-        {/* Detail card */}
-        <div className="max-w-4xl mx-auto min-h-[180px]">
+        {/* ── Detail: left text + right card ── */}
+        <div className="max-w-4xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeStep}
@@ -107,24 +134,63 @@ export function ProcessSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.35 }}
-              className="bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/10 rounded-2xl p-8 flex flex-col sm:flex-row items-start gap-6"
+              className="grid md:grid-cols-2 gap-8 items-start"
             >
-              <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center">
-                <ActiveIcon className="w-8 h-8 text-purple-500 dark:text-purple-400" />
-              </div>
-              <div className="flex-1">
-                <p className="text-purple-500 dark:text-purple-400 text-xs font-semibold uppercase tracking-widest mb-1">
-                  Step &bull; {String(active.id).padStart(2, '0')}
+              {/* LEFT — step info + bullets */}
+              <div className="space-y-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center">
+                    <ActiveIcon className="w-6 h-6 text-purple-500 dark:text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-purple-500 dark:text-purple-400 text-xs font-semibold uppercase tracking-widest">
+                      Step &bull; {String(active.id).padStart(2, '0')}
+                    </p>
+                    <h3 className="text-gray-900 dark:text-white text-2xl font-bold">{active.title}</h3>
+                  </div>
+                </div>
+
+                <p className="text-gray-500 dark:text-white/60 text-sm leading-relaxed">
+                  {active.description}
                 </p>
-                <h3 className="text-gray-900 dark:text-white text-2xl font-bold mb-3">{active.title}</h3>
-                <p className="text-gray-500 dark:text-white/60 text-base leading-relaxed">{active.description}</p>
+
+                <ul className="space-y-2.5">
+                  {active.bullets.map((bullet) => (
+                    <li key={bullet} className="flex items-center gap-2.5 text-gray-600 dark:text-white/70 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500 dark:bg-purple-400 shrink-0" />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* RIGHT — dark visual card */}
+              <div className="relative rounded-2xl overflow-hidden bg-gray-900 dark:bg-[#0a0a0a] border border-gray-200 dark:border-white/5 min-h-[260px] flex items-center justify-center">
+                {/* Background glow blobs */}
+                <div className="absolute w-32 h-32 bg-purple-600/20 rounded-full blur-3xl top-4 left-8 pointer-events-none" />
+                <div className="absolute w-24 h-24 bg-violet-500/15 rounded-full blur-2xl bottom-4 right-8 pointer-events-none" />
+
+                <div className="relative z-10 text-center px-8 py-10">
+                  <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center mx-auto mb-4">
+                    <ActiveIcon className="w-7 h-7 text-white" />
+                  </div>
+                  <h4 className="text-white text-xl font-bold mb-2">{active.title}</h4>
+                  <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto">
+                    {active.description}
+                  </p>
+                </div>
+
+                {/* Step number watermark */}
+                <span className="absolute bottom-4 right-5 text-6xl font-black text-white/5 select-none">
+                  {String(active.id).padStart(2, '0')}
+                </span>
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* Mobile dots */}
-        <div className="flex justify-center gap-2 mt-6 sm:hidden">
+        <div className="flex justify-center gap-2 mt-8 sm:hidden">
           {steps.map((_, i) => (
             <button key={i} onClick={() => setActiveStep(i)}
               className={`h-2 rounded-full transition-all duration-300 ${
