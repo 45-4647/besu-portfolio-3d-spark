@@ -103,8 +103,21 @@ export function ProjectsSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [current, setCurrent] = useState(0);
   const [showAll, setShowAll] = useState(false);
+  const [cols, setCols] = useState(3); // responsive: 1 | 2 | 3
   const sectionRef = useRef<HTMLElement>(null);
   const autoTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Track viewport width to decide how many cards to show
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth < 640) setCols(1);
+      else if (window.innerWidth < 1024) setCols(2);
+      else setCols(3);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   useEffect(() => {
     if (sectionRef.current) {
@@ -137,8 +150,12 @@ export function ProjectsSection() {
     startAuto();
   };
 
-  // Build the 3 visible indices: [prev, current, next]
-  const indices = [-1, 0, 1].map(offset =>
+  // Build visible indices based on cols:
+  // cols=1 → [current]
+  // cols=2 → [current, next]
+  // cols=3 → [prev, current, next]
+  const offsets = cols === 1 ? [0] : cols === 2 ? [0, 1] : [-1, 0, 1];
+  const indices = offsets.map(offset =>
     ((current + offset) % projects.length + projects.length) % projects.length
   );
 
@@ -179,36 +196,40 @@ export function ProjectsSection() {
           {/* Prev arrow */}
           <button
             onClick={() => goTo(current - 1)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-20 w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-white dark:bg-[#111] shadow-md flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white hover:border-purple-400 transition-all"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 sm:-translate-x-2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gray-200 dark:border-white/20 bg-white dark:bg-[#111] shadow-md flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white hover:border-purple-400 transition-all"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
           {/* Next arrow */}
           <button
             onClick={() => goTo(current + 1)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-20 w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 bg-white dark:bg-[#111] shadow-md flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white hover:border-purple-400 transition-all"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 sm:translate-x-2 z-20 w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gray-200 dark:border-white/20 bg-white dark:bg-[#111] shadow-md flex items-center justify-center text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white hover:border-purple-400 transition-all"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
 
-          {/* Cards grid — always 3 visible */}
-          <div className="grid grid-cols-3 gap-5 px-8">
+          {/* Responsive cards grid */}
+          <div
+            className="grid gap-4 sm:gap-5 px-6 sm:px-8"
+            style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
+          >
             <AnimatePresence mode="popLayout" initial={false}>
               {indices.map((projIdx, pos) => {
                 const project = projects[projIdx];
-                const isCenter = pos === 1;
+                // Center card: last in 1-col, middle in 3-col, first in 2-col
+                const isCenter = cols === 1 ? true : cols === 2 ? pos === 0 : pos === 1;
                 return (
                   <motion.div
                     key={`${projIdx}-${current}`}
-                    initial={{ opacity: 0, x: pos === 0 ? -40 : pos === 2 ? 40 : 0 }}
+                    initial={{ opacity: 0, x: pos === 0 ? -40 : 40 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.35 }}
                     className={`rounded-2xl overflow-hidden border bg-white dark:bg-[#111] transition-all duration-300 ${
                       isCenter
-                        ? 'border-purple-400 dark:border-purple-500/50 shadow-2xl shadow-purple-500/15 scale-100'
-                        : 'border-gray-100 dark:border-white/5 opacity-70 scale-95'
+                        ? 'border-purple-400 dark:border-purple-500/50 shadow-2xl shadow-purple-500/15'
+                        : 'border-gray-100 dark:border-white/5 opacity-60 scale-95'
                     }`}
                   >
                     {/* Screenshot image */}
