@@ -32,7 +32,7 @@ const Index = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-[#0a0a0a] text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`min-h-screen overflow-x-hidden transition-colors duration-300 ${darkMode ? 'bg-[#0a0a0a] text-white' : 'bg-white text-gray-900'}`}>
       <Navigation darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
       <main>

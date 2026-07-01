@@ -57,7 +57,7 @@ export function HeroSection() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-visible bg-gray-50 dark:bg-[#0a0a0a] transition-colors duration-300">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-gray-50 dark:bg-[#0a0a0a] transition-colors duration-300">
       <Scene3D />
 
       {/* Parallax orbs */}
@@ -162,24 +162,24 @@ export function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
             style={{ x: imgX, y: imgY }}
-            className="relative flex justify-center items-center overflow-visible"
+            className="relative flex justify-center items-center"
           >
-            {/* Orbit rings — ellipse to match portrait frame */}
-            <div className="absolute w-[300px] h-[380px] md:w-[380px] md:h-[460px]" style={{ borderRadius: '50%', border: '1px solid hsl(var(--primary)/0.2)', animation: 'spin 20s linear infinite' }} />
-            <div className="absolute w-[340px] h-[430px] md:w-[430px] md:h-[520px]" style={{ borderRadius: '50%', border: '1px solid hsl(250 84% 64% / 0.08)', animation: 'spin 35s linear infinite reverse' }} />
+            {/* Orbit rings — hidden on mobile to prevent overflow */}
+            <div className="absolute hidden md:block w-[380px] h-[460px]" style={{ borderRadius: '50%', border: '1px solid hsl(var(--primary)/0.2)', animation: 'spin 20s linear infinite' }} />
+            <div className="absolute hidden md:block w-[430px] h-[520px]" style={{ borderRadius: '50%', border: '1px solid hsl(250 84% 64% / 0.08)', animation: 'spin 35s linear infinite reverse' }} />
 
-            {/* Orbiting dots */}
-            <div className="absolute w-[300px] h-[380px] md:w-[380px] md:h-[460px]" style={{ borderRadius: '50%', animation: 'spin 8s linear infinite' }}>
+            {/* Orbiting dots — hidden on mobile */}
+            <div className="absolute hidden md:block w-[380px] h-[460px]" style={{ borderRadius: '50%', animation: 'spin 8s linear infinite' }}>
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-violet-400 shadow-lg shadow-violet-400/60" />
             </div>
-            <div className="absolute w-[340px] h-[430px] md:w-[430px] md:h-[520px]" style={{ borderRadius: '50%', animation: 'spin 13s linear infinite reverse' }}>
+            <div className="absolute hidden md:block w-[430px] h-[520px]" style={{ borderRadius: '50%', animation: 'spin 13s linear infinite reverse' }}>
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-pink-400 shadow-lg shadow-pink-400/60" />
             </div>
 
             {/* Glow */}
             <div className="absolute inset-0 bg-primary/20 blur-3xl animate-glow-pulse" style={{ borderRadius: '50%' }} />
 
-            {/* Image — portrait frame, taller than wide to show full person */}
+            {/* Image — portrait frame */}
             <div
               className="relative p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50"
               style={{ borderRadius: '50% / 45%' }}
@@ -191,8 +191,8 @@ export function HeroSection() {
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 className="block bg-background"
                 style={{
-                  width: 'clamp(220px, 28vw, 380px)',
-                  height: 'clamp(280px, 36vw, 480px)',
+                  width: 'clamp(200px, 40vw, 380px)',
+                  height: 'clamp(260px, 52vw, 480px)',
                   objectFit: 'cover',
                   objectPosition: 'center 15%',
                   borderRadius: '50% / 45%',
@@ -200,12 +200,12 @@ export function HeroSection() {
               />
             </div>
 
-            {/* Floating skill badges */}
+            {/* Floating skill badges — hidden on mobile, shown md+ */}
             {[
-              { label: 'React', x: '-110%', y: '20%', delay: 1.2 },
-              { label: 'Node.js', x: '110%', y: '20%', delay: 1.4 },
-              { label: 'Three.js', x: '-90%', y: '75%', delay: 1.6 },
-              { label: 'MongoDB', x: '90%', y: '75%', delay: 1.8 },
+              { label: 'React',    x: '-120%', y: '15%', delay: 1.2 },
+              { label: 'Node.js',  x: '100%',  y: '15%', delay: 1.4 },
+              { label: 'Three.js', x: '-100%', y: '70%', delay: 1.6 },
+              { label: 'MongoDB',  x: '80%',   y: '70%', delay: 1.8 },
             ].map((badge) => (
               <motion.div
                 key={badge.label}
@@ -213,7 +213,7 @@ export function HeroSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: badge.delay, type: 'spring' }}
                 whileHover={{ scale: 1.15 }}
-                className="absolute px-3 py-1.5 rounded-full bg-white/90 dark:bg-background/80 border border-primary/30 backdrop-blur-md text-xs font-semibold text-primary shadow-lg cursor-default"
+                className="absolute hidden md:block px-3 py-1.5 rounded-full bg-white/90 dark:bg-background/80 border border-primary/30 backdrop-blur-md text-xs font-semibold text-primary shadow-lg cursor-default"
                 style={{ left: badge.x, top: badge.y }}
               >
                 {badge.label}
