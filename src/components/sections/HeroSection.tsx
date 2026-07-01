@@ -182,7 +182,7 @@ export function HeroSection() {
             {/* Image */}
             <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50">
               <motion.img
-                src="/hero.png"
+                src="/hero.jpg"
                 alt="Besufikad Kasahun"
                 animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
