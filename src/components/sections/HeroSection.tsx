@@ -164,29 +164,39 @@ export function HeroSection() {
             style={{ x: imgX, y: imgY }}
             className="relative flex justify-center items-center overflow-visible"
           >
-            {/* Orbit rings */}
-            <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full border border-primary/20 animate-spin" style={{ animationDuration: '20s' }} />
-            <div className="absolute w-[390px] h-[390px] md:w-[470px] md:h-[470px] rounded-full border border-purple-500/10 animate-spin" style={{ animationDuration: '35s', animationDirection: 'reverse' }} />
+            {/* Orbit rings — ellipse to match portrait frame */}
+            <div className="absolute w-[300px] h-[380px] md:w-[380px] md:h-[460px]" style={{ borderRadius: '50%', border: '1px solid hsl(var(--primary)/0.2)', animation: 'spin 20s linear infinite' }} />
+            <div className="absolute w-[340px] h-[430px] md:w-[430px] md:h-[520px]" style={{ borderRadius: '50%', border: '1px solid hsl(250 84% 64% / 0.08)', animation: 'spin 35s linear infinite reverse' }} />
 
             {/* Orbiting dots */}
-            <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] animate-spin" style={{ animationDuration: '8s' }}>
+            <div className="absolute w-[300px] h-[380px] md:w-[380px] md:h-[460px]" style={{ borderRadius: '50%', animation: 'spin 8s linear infinite' }}>
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-violet-400 shadow-lg shadow-violet-400/60" />
             </div>
-            <div className="absolute w-[390px] h-[390px] md:w-[470px] md:h-[470px] animate-spin" style={{ animationDuration: '13s', animationDirection: 'reverse' }}>
+            <div className="absolute w-[340px] h-[430px] md:w-[430px] md:h-[520px]" style={{ borderRadius: '50%', animation: 'spin 13s linear infinite reverse' }}>
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-pink-400 shadow-lg shadow-pink-400/60" />
             </div>
 
             {/* Glow */}
-            <div className="absolute inset-0 rounded-full bg-primary/25 blur-3xl animate-glow-pulse" />
+            <div className="absolute inset-0 bg-primary/20 blur-3xl animate-glow-pulse" style={{ borderRadius: '50%' }} />
 
-            {/* Image */}
-            <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50 overflow-visible" style={{ transform: 'translateY(-100px)' }}>
+            {/* Image — portrait frame, taller than wide to show full person */}
+            <div
+              className="relative p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50"
+              style={{ borderRadius: '50% / 45%' }}
+            >
               <motion.img
                 src="/hero.JPG"
                 alt="Besufikad Kasahun"
-                animate={{ y: [0, -14, 0] }}
+                animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover object-top rounded-full bg-background"
+                className="block bg-background"
+                style={{
+                  width: 'clamp(220px, 28vw, 380px)',
+                  height: 'clamp(280px, 36vw, 480px)',
+                  objectFit: 'cover',
+                  objectPosition: 'center 15%',
+                  borderRadius: '50% / 45%',
+                }}
               />
             </div>
 
