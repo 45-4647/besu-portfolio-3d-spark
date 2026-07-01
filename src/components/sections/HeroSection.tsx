@@ -180,14 +180,13 @@ export function HeroSection() {
             <div className="absolute inset-0 rounded-full bg-primary/25 blur-3xl animate-glow-pulse" />
 
             {/* Image */}
-            <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50 overflow-visible">
+            <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50 overflow-visible" style={{ transform: 'translateY(-100px)' }}>
               <motion.img
                 src="/hero.JPG"
                 alt="Besufikad Kasahun"
                 animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-full bg-background"
-                style={{ objectPosition: 'center 5%' }}
+                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover object-top rounded-full bg-background"
               />
             </div>
 
