@@ -57,11 +57,11 @@ export function HeroSection() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-gray-50 dark:bg-[#0a0a0a] transition-colors duration-300">
+    <section id="home" className="relative min-h-screen flex items-center overflow-visible bg-gray-50 dark:bg-[#0a0a0a] transition-colors duration-300">
       <Scene3D />
 
       {/* Parallax orbs */}
-      <motion.div style={{ x: orbX, y: orbY }} className="pointer-events-none absolute inset-0 z-0">
+      <motion.div style={{ x: orbX, y: orbY }} className="pointer-events-none absolute inset-0 z-0 overflow-visible">
         <div className="orb w-[600px] h-[600px] bg-violet-600/25 -top-32 -left-32" />
         <div className="orb w-[500px] h-[500px] bg-purple-500/20 -bottom-24 -right-24" />
         <div className="orb w-[300px] h-[300px] bg-pink-500/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
@@ -69,8 +69,8 @@ export function HeroSection() {
 
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50/85 dark:from-black/85 via-transparent to-gray-50/85 dark:to-black/85 z-10" />
 
-      <div className="relative z-20 container mx-auto px-6 pt-24">
-        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+      <div className="relative z-20 container mx-auto px-6 pt-24 pb-28 overflow-visible">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 overflow-visible">
 
           {/* LEFT */}
           <motion.div
@@ -162,7 +162,7 @@ export function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
             style={{ x: imgX, y: imgY }}
-            className="relative flex justify-center items-center"
+            className="relative flex justify-center items-center overflow-visible"
           >
             {/* Orbit rings */}
             <div className="absolute w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full border border-primary/20 animate-spin" style={{ animationDuration: '20s' }} />
@@ -180,13 +180,13 @@ export function HeroSection() {
             <div className="absolute inset-0 rounded-full bg-primary/25 blur-3xl animate-glow-pulse" />
 
             {/* Image */}
-            <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50">
+            <div className="relative rounded-full p-[4px] bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 shadow-2xl shadow-purple-500/50 overflow-visible">
               <motion.img
                 src="/hero.JPG"
                 alt="Besufikad Kasahun"
                 animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-full bg-background"
+                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-full bg-background"
               />
             </div>
 
