@@ -186,7 +186,8 @@ export function HeroSection() {
                 alt="Besufikad Kasahun"
                 animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover object-top rounded-full bg-background"
+                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-full bg-background"
+                style={{ objectPosition: 'center 10%' }}
               />
             </div>
 
