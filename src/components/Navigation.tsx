@@ -89,11 +89,11 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
       transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}
     >
-      <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex items-center justify-between">
+      <div className="w-full px-3 sm:px-6 py-3 sm:py-4 max-w-screen-2xl mx-auto">
+        <div className="flex items-center justify-between min-w-0 gap-2">
 
           {/* Logo */}
-          <button onClick={() => scrollTo('home')} className="flex items-center gap-2.5 text-left shrink-0">
+          <button onClick={() => scrollTo('home')} className="flex items-center gap-2 text-left shrink-0 min-w-0">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-purple-500/30">
               BK
             </div>
@@ -126,51 +126,51 @@ export function Navigation({ darkMode, toggleDarkMode }: NavigationProps) {
           </div>
 
           {/* Right: theme toggle + Hire Me + hamburger */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2">
 
-            {/* Theme toggle */}
+            {/* Theme toggle — smaller on mobile */}
             <button
               onClick={toggleDarkMode}
               aria-label="Toggle theme"
-              className={`w-9 h-9 rounded-lg border flex items-center justify-center transition-all ${iconBtn}`}
+              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg border flex items-center justify-center transition-all shrink-0 ${iconBtn}`}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {darkMode ? (
                   <motion.span key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Sun className="w-4 h-4" />
+                    <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </motion.span>
                 ) : (
                   <motion.span key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Moon className="w-4 h-4" />
+                    <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </motion.span>
                 )}
               </AnimatePresence>
             </button>
 
-            {/* Hire Me */}
+            {/* Hire Me — desktop/tablet only */}
             <button
               onClick={() => scrollTo('contact')}
-              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black text-sm font-semibold hover:opacity-90 transition-all shadow-lg"
+              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black text-sm font-semibold hover:opacity-90 transition-all shadow-lg shrink-0"
             >
               <Briefcase className="w-3.5 h-3.5" />
               Hire Me
             </button>
 
-            {/* Hamburger */}
+            {/* Hamburger — mobile only, smaller */}
             <button
               onClick={() => setIsOpen(o => !o)}
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
-              className={`lg:hidden w-9 h-9 rounded-lg border flex items-center justify-center transition-all ${iconBtn}`}
+              className={`lg:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-lg border flex items-center justify-center transition-all shrink-0 ${iconBtn}`}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {isOpen ? (
                   <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <X className="w-4 h-4" />
+                    <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </motion.span>
                 ) : (
                   <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Menu className="w-4 h-4" />
+                    <Menu className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </motion.span>
                 )}
               </AnimatePresence>
